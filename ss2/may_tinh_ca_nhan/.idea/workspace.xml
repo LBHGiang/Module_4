@@ -20,37 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e72b6d4c-7806-41e9-bb78-48cef16f3c93" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../timezone/.gradle/6.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/.gradle/6.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/.gradle/6.1/fileChanges/last-build.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/.gradle/6.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/.gradle/6.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/.gradle/6.1/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/.gradle/vcs-1/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/src/main/java/time_zone/controller/TimezoneController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/src/main/webapp/WEB-INF/applicationContext.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/src/main/webapp/WEB-INF/dispatcher-servlet.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/src/main/webapp/WEB-INF/views/index.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../timezone/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../ss1/customer-management" beforeDir="false" afterPath="$PROJECT_DIR$/../../ss1/customer-management" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ss1/ex1_money_change/src/main/java/money_conversion/controller/ConversionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../ss1/ex1_money_change/src/main/java/money_conversion/controller/ConversionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer-management" beforeDir="false" afterPath="$PROJECT_DIR$/../customer-management" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,6 +172,7 @@
       <workItem from="1665736361785" duration="940000" />
       <workItem from="1665739996050" duration="1997000" />
       <workItem from="1665743204992" duration="654000" />
+      <workItem from="1665969403936" duration="29000" />
     </task>
     <servers />
   </component>
