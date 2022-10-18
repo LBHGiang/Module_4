@@ -36,7 +36,7 @@
                     <td><form:textarea path="signature"/></td>
                 </tr>
                 <tr>
-                    <td></td>       
+                    <td></td>
                     <td><form:button type="submit">Update</form:button>
                         <a href="/setting">Cancel</a>
                     </td>
