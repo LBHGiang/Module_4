@@ -8,6 +8,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import product_management.model.Product;
 import product_management.service.IProductService;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/product")
 public class ProductController {
@@ -61,10 +63,15 @@ public class ProductController {
     }
 
     @GetMapping("/{id}/view")
-    public String details(@PathVariable int id, Model model){
+    public String details(@PathVariable int id, Model model) {
         model.addAttribute("product", productService.findById(id));
         return "view";
     }
 
-
+    @GetMapping("/search")
+    public String search(@RequestParam String searchName, Model model) {
+        List<Product> products = productService.findByName(searchName);
+        model.addAttribute("products", products);
+        return "list";
+    }
 }
