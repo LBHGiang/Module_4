@@ -20,13 +20,13 @@ public class ProductController {
     @GetMapping
     public String list(Model model) {
         model.addAttribute("products", productService.findAll());
-        return "list";
+        return "product/list";
     }
 
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable int id, Model model) {
         model.addAttribute("product", productService.findById(id));
-        return "delete";
+        return "product/delete";
     }
 
     @PostMapping("/delete")
@@ -39,7 +39,7 @@ public class ProductController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("product", new Product());
-        return "create";
+        return "product/create";
     }
 
     @PostMapping("/create")
@@ -52,7 +52,7 @@ public class ProductController {
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable int id, Model model) {
         model.addAttribute("product", productService.findById(id));
-        return "edit";
+        return "product/edit";
     }
 
     @PostMapping("/edit")
@@ -65,13 +65,13 @@ public class ProductController {
     @GetMapping("/{id}/view")
     public String details(@PathVariable int id, Model model) {
         model.addAttribute("product", productService.findById(id));
-        return "view";
+        return "product/view";
     }
 
     @GetMapping("/search")
     public String search(@RequestParam String searchName, Model model) {
         List<Product> products = productService.findByName(searchName);
         model.addAttribute("products", products);
-        return "list";
+        return "product/list";
     }
 }
