@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>Edit Customer</h3>
+<p>
+    <a href="/blog">
+        Back to blog list
+    </a>
+</p>
+<div id="form">
+    <form action="/blog/edit" th:object="${blog}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label>Title</label>
+            <input type="text" th:field="*{title}"/>
+        </div>
+        <div>
+            <label>Category</label>
+            <input type="number" th:field="*{category}"/>
+        </div>
+        <div>
+            <label>Author</label>
+            <input type="text" th:field="*{author}"/>
+        </div>
+        <div>
+            <label>Time</label>
+            <input type="text" th:field="*{time}"/>
+        </div>
+        <div>
+            <label>Content</label>
+            <textarea th:field="*{body}"/>
+        </div>
+        <input type="submit"/>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
