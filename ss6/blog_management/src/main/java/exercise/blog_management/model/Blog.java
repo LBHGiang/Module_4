@@ -1,9 +1,6 @@
 package exercise.blog_management.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Blog {
@@ -12,21 +9,25 @@ public class Blog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
-    private Integer category;
     private String author;
     private String time;
     private String body;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private Category category;
+
+
     public Blog() {
     }
 
-    public Blog(Integer id, String title, Integer category, String author, String time, String body) {
+    public Blog(Integer id, String title, String author, String time, String body, Category category) {
         this.id = id;
         this.title = title;
-        this.category = category;
         this.author = author;
         this.time = time;
         this.body = body;
+        this.category = category;
     }
 
     public Integer getId() {
@@ -45,14 +46,6 @@ public class Blog {
         this.title = title;
     }
 
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
     public String getAuthor() {
         return author;
     }
@@ -61,19 +54,27 @@ public class Blog {
         this.author = author;
     }
 
-    public Integer getCategory() {
-        return category;
-    }
-
-    public void setCategory(Integer category) {
-        this.category = category;
-    }
-
     public String getTime() {
         return time;
     }
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

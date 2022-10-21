@@ -18,15 +18,14 @@
         </div>
         <div>
             <label>Category</label>
-            <input type="number" th:field="*{category}"/>
+            <select th:field="*{category}">
+                <option th:each="category: ${categories}"
+                th:value="${category.id}" th:text="${category.name}"></option>
+            </select>
         </div>
         <div>
             <label>Author</label>
             <input type="text" th:field="*{author}"/>
-        </div>
-        <div>
-            <label>Time</label>
-            <input type="text" th:field="*{time}"/>
         </div>
         <div>
             <label>Content</label>

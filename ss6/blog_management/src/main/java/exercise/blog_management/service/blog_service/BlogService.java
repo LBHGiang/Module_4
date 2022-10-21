@@ -1,8 +1,10 @@
-package exercise.blog_management.service;
+package exercise.blog_management.service.blog_service;
 
 import exercise.blog_management.model.Blog;
 import exercise.blog_management.repository.IBlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +14,14 @@ public class BlogService implements IBlogService {
     @Autowired
     private IBlogRepository blogRepository;
 
+//    @Override
+//    public List<Blog> findAll() {
+//        return blogRepository.findAll();
+//    }
+
     @Override
-    public List<Blog> findAll() {
-        return blogRepository.findAll();
+    public Page<Blog> findAll(Pageable pageable) {
+        return blogRepository.findAll(pageable);
     }
 
     @Override
