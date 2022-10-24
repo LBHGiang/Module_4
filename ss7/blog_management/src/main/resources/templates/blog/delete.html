@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/bootstrap_layout :: head"></head>
+<body>
+<h3>Remove Customer</h3>
+<p>
+    <a href="/blog">Back to List</a>
+</p>
+
+<form action="/blog/delete"
+      method="post">
+    <input type="hidden" th:name="id" th:value="${blog.id}"/>
+    <div>Delete blog: <strong color="red" th:text="${blog.title}"></strong>?
+    </div>
+    <a href="/blog">Cancel</a>
+    <button type="submit" >Delete</button>
+</form>
+
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
