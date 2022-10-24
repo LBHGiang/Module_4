@@ -3,24 +3,25 @@ package exercise.user_login.dto;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 public class SongDto {
 
     private Integer id;
 
     @NotBlank(message = "Title is required")
-    @Max(value = 800, message = "Title is less than 800 characters")
+    @Size(max = 800, message = "Title is less than 800 characters")
     @Pattern(regexp="^[a-zA-Z0-9\\s]*$", message = "Title does not contain special characters")
     private String title;
 
     @NotBlank(message = "Artist's name is required")
-    @Max(value = 300, message = "Artist's name is less than 300 characters")
+    @Size(max = 800, message = "Artist's name is less than 300 characters")
     @Pattern(regexp="^[a-zA-Z0-9\\s]*$", message = "Artist's name does not contain special characters")
     private String artist;
 
     @NotBlank(message = "Kind Of Music is required")
-    @Max(value = 300, message = "Kind Of Music is less than 300 characters")
-    @Pattern(regexp="^[a-zA-Z0-9\\s]*$", message = "Does not contain any special characters except the ampersand ,")
+    @Size(max = 300, message = "Kind Of Music is less than 300 characters")
+    @Pattern(regexp="^[a-zA-Z0-9\\s\\,]*$", message = "Does not contain any special characters except the ampersand ,")
     private String kindOfMusic;
 
     public SongDto() {

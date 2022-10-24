@@ -9,7 +9,7 @@
     </a>
 </p>
 <div id="form">
-    <form action="/blog/edit" th:object="${blog}"
+    <form action="/blog/edit" th:object="${songDto}"
           method="POST" novalidate="novalidate">
         <input type="hidden" th:field="*{id}"/>
         <div>

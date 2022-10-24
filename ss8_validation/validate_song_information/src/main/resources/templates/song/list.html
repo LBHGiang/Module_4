@@ -17,6 +17,7 @@
         <th>Title</th>
         <th>Artist</th>
         <th>Kind Of Music</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -25,6 +26,7 @@
         <td th:text="${song.title}"></td>
         <td th:text="${song.artist}"></td>
         <td th:text="${song.kindOfMusic}"></td>
+        <td><a th:href="@{/{id}/edit(id=${song.id})}">Edit</a></td>
     </tr>
     </tbody>
 </table>

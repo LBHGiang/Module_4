@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<h3>Edit Customer</h3>
+<p>
+    <a href="">
+        Back to Song list
+    </a>
+</p>
+<div id="form">
+    <form action="/edit" th:object="${songDto}"
+          method="POST">
+        <table>
+            <input type="hidden" th:field="*{id}"/>
+            <tr>
+                <td>Title</td>
+                <td><input type="text" th:field="*{title}"/>
+                    <p style="color: red"
+                       th:if="${#fields.hasErrors('title')}"
+                       th:errors="*{title}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>Artist</td>
+                <td><input type="text" th:field="*{artist}"/>
+                    <p style="color: red"
+                       th:if="${#fields.hasErrors('artist')}"
+                       th:errors="*{artist}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>Kind Of Music</td>
+                <td><input type="text" th:field="*{kindOfMusic}"/>
+                    <p style="color: red"
+                       th:if="${#fields.hasErrors('kindOfMusic')}"
+                       th:errors="*{kindOfMusic}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Save"/></td>
+            </tr>
+        </table>
+        <input type="submit" value="Edit"/>
+    </form>
+</div>
+</body>
+</html>
