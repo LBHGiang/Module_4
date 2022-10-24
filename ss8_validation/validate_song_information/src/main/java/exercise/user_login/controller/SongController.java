@@ -1,8 +1,8 @@
 package exercise.user_login.controller;
 
-import exercise.user_login.dto.UserDto;
-import exercise.user_login.model.User;
-import exercise.user_login.service.IUserService;
+import exercise.user_login.dto.SongDto;
+import exercise.user_login.model.Song;
+import exercise.user_login.service.ISongService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,34 +16,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping
-public class UserController {
+public class SongController {
 
     @Autowired
-    private IUserService userService;
+    private ISongService songService;
 
     @GetMapping("/")
     public String showAll(Model model) {
-        model.addAttribute("users", userService.findAll());
-        return "user/list";
+        model.addAttribute("songs", songService.findAll());
+        return "song/list";
     }
 
     @GetMapping("/create")
     public String showCreateForm(Model model) {
-        model.addAttribute("userDto", new UserDto());
-        return "user/create";
+        model.addAttribute("songDto", new SongDto());
+        return "song/create";
     }
 
     @PostMapping("/create")
-    public String create(@Validated @ModelAttribute UserDto userDto,
+    public String create(@Validated @ModelAttribute SongDto songDto,
                          BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) {
-            User user = new User();
-            BeanUtils.copyProperties(userDto, user);
-            userService.save(user);
-            model.addAttribute("message", "Added user successfully");
+            Song song = new Song();
+            BeanUtils.copyProperties(songDto, song);
+            songService.save(song);
+            model.addAttribute("message", "Added song successfully");
         } else {
-            model.addAttribute("message", "Add new user failure");
+            model.addAttribute("message", "Add new song failure");
         }
-        return "user/create";
+        return "song/create";
     }
 }

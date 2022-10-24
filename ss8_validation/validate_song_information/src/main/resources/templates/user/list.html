@@ -2,33 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>User List</title>
+    <title>Song List</title>
 </head>
 <body>
-    <h2 th:if="${message}">
-        <span th:text="${message}"></span>
-    </h2>
-    <a href="/create">Add new user</a>
-<h3 style="text-align: center" >All User</h3>
+<h2 th:if="${message}">
+    <span th:text="${message}"></span>
+</h2>
+<a href="/create">Add new song</a>
+<h3 style="text-align: center" >All song</h3>
 <table>
     <thead>
     <tr>
         <th>STT</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Phone Number</th>
-        <th>Age</th>
-        <th>Email</th>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>Kind Of Music</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="user, status : ${users}">
+    <tr th:each="song, status : ${songs}">
         <td th:text="${status.count}"></td>
-        <td th:text="${user.firstName}"></td>
-        <td th:text="${user.lastName}"></td>
-        <td th:text="${user.phoneNumber}"></td>
-        <td th:text="${user.age}"></td>
-        <td th:text="${user.email}"></td>
+        <td th:text="${song.title}"></td>
+        <td th:text="${song.artist}"></td>
+        <td th:text="${song.kindOfMusic}"></td>
     </tr>
     </tbody>
 </table>
