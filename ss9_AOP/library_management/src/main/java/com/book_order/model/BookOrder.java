@@ -1,30 +1,45 @@
 package com.book_order.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class BookOrder {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private Integer otp;
+    private String orderDate;
+    private String returnDate;
 
     @ManyToOne
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     private Book book;
 
-    private String orderDate;
-    private String returnDate;
+
 
     public BookOrder() {
     }
 
-    public BookOrder(Integer otp, Book book, String orderDate, String returnDate) {
+    public BookOrder(Integer id, Integer otp, String orderDate, String returnDate, Book book) {
+        this.id = id;
         this.otp = otp;
-        this.book = book;
         this.orderDate = orderDate;
         this.returnDate = returnDate;
+        this.book = book;
+    }
+
+    public BookOrder(Integer otp, String orderDate, String returnDate, Book book) {
+        this.otp = otp;
+        this.orderDate = orderDate;
+        this.returnDate = returnDate;
+        this.book = book;
+    }
+
+    public BookOrder(Integer otp, String orderDate, Book book) {
+        this.otp = otp;
+        this.orderDate = orderDate;
+        this.book = book;
     }
 
     public Integer getOtp() {
@@ -57,5 +72,13 @@ public class BookOrder {
 
     public void setReturnDate(String returnDate) {
         this.returnDate = returnDate;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

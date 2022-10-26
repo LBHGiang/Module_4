@@ -8,5 +8,5 @@ import org.springframework.data.repository.query.Param;
 public interface IOrderRepository extends JpaRepository<BookOrder, Integer> {
 
     @Query(value = "select * from `book_order` where otp = :otp", nativeQuery = true)
-    BookOrder findByOtp(@Param("otp") String otp);
+    BookOrder findByOtp(@Param("otp") int otp);
 }

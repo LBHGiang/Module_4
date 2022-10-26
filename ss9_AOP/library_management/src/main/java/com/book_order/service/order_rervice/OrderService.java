@@ -38,7 +38,7 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public BookOrder findByOtp(String otp) {
+    public BookOrder findByOtp(int otp) {
         return orderRepository.findByOtp(otp);
     }
 

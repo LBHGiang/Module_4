@@ -30,103 +30,93 @@ public class BookOrderController {
 
     @GetMapping("/{id}/order")
     public String showOrderConfirmForm(@PathVariable("id") int id, Model model) {
-        BookOrder bookOrder = new BookOrder();
-        int otp = (int) (Math.random() * (99999 - 10000) + 10000);
-        bookOrder.setOtp(otp);
 
         Book book = bookService.findById(id);
-        bookOrder.setBook(book);
-
-        String orderDate = String.valueOf(new Date(System.currentTimeMillis()));
-        bookOrder.setOrderDate(orderDate);
-
-        model.addAttribute("bookOrder", bookOrder);
-        return "order/create";
+        model.addAttribute("book", book);
+        return "book/order_form";
     }
 
     @PostMapping("/order")
-    public String order(@ModelAttribute BookOrder bookOrder, RedirectAttributes redirect) {
+    public String order(@RequestParam Integer id, Model model) {
 
+        int otp = (int) (Math.random() * (99999 - 10000) + 10000);
+        Book book = bookService.findById(id);
+        String orderDate = String.valueOf(new Date(System.currentTimeMillis()));
+
+        BookOrder bookOrder = new BookOrder(otp, orderDate, book);
         orderService.save(bookOrder);
 
-        Book book = bookOrder.getBook();
         book.setStock(book.getStock() - 1);
         bookService.save(book);
 
-        redirect.addFlashAttribute("message", "Successfully order!");
-        return "redirect:/book";
+        model.addAttribute("message",
+                "Successfully order! Your order OTP is: " + otp);
+        return "book/notification";
     }
 
     @GetMapping("/return")
-    public String showReturnConfirmForm(@PathVariable String otp, Model model) {
+    public String showReturnConfirmForm(@RequestParam int otp, RedirectAttributes redirect) {
         BookOrder bookOrder = orderService.findByOtp(otp);
         if (bookOrder == null) {
-            model.addAttribute("message", "OTP invalid!");
-            return "book/list";
+            redirect.addFlashAttribute("message", "OTP invalid!");
+
         } else {
             String returnDate = String.valueOf(new Date(System.currentTimeMillis()));
             bookOrder.setReturnDate(returnDate);
-            model.addAttribute("bookOrder", bookOrder);
-            return "order/return";
+            orderService.save(bookOrder);
+
+            Book book = bookOrder.getBook();
+            book.setStock(book.getStock() + 1);
+            bookService.save(book);
+
+            redirect.addFlashAttribute("message", "Return book successful! Thank you!");
         }
-    }
-
-    @PostMapping("/return")
-    public String returnBook(@ModelAttribute BookOrder bookOrder, RedirectAttributes redirect) {
-
-        orderService.save(bookOrder);
-
-        Book book = bookOrder.getBook();
-        book.setStock(book.getStock() + 1);
-        bookService.save(book);
-
-        redirect.addFlashAttribute("message", "Successfully return!");
         return "redirect:/book";
     }
 
 
-    @GetMapping("/{id}/delete")
-    public String delete(@PathVariable int id, Model model) {
-        model.addAttribute("book", bookService.findById(id));
-        return "book/delete";
-    }
-
-    @PostMapping("/delete")
-    public String delete(@RequestParam Integer id, RedirectAttributes redirect) {
-        bookService.remove(bookService.findById(id));
-        redirect.addFlashAttribute("message", "Successfully removed");
-        return "redirect:/book";
-    }
-
-    @GetMapping("/create")
-    public String create(Model model) {
-        model.addAttribute("book", new Book());
-        return "book/create";
-    }
-
-    @PostMapping("/create")
-    public String create(@ModelAttribute Book book, RedirectAttributes redirect) {
-        bookService.save(book);
-        redirect.addFlashAttribute("message", "Successfully added");
-        return "redirect:/book";
-    }
-
-    @GetMapping("/{id}/edit")
-    public String edit(@PathVariable int id, Model model) {
-        model.addAttribute("book", bookService.findById(id));
-        return "book/edit";
-    }
-
-    @PostMapping("/edit")
-    public String edit(@ModelAttribute Book book, RedirectAttributes redirect) {
-        bookService.update(book);
-        redirect.addFlashAttribute("message", "Successfully updated");
-        return "redirect:/book";
-    }
-
-    @GetMapping("/{id}/view")
-    public String details(@PathVariable int id, Model model) {
-        model.addAttribute("book", bookService.findById(id));
-        return "book/view";
-    }
+//    @GetMapping("/{id}/view")
+//    public String details(@PathVariable int id, Model model) {
+//        model.addAttribute("book", bookService.findById(id));
+//        return "book/view";
+//    }
+//
+//    @GetMapping("/{id}/delete")
+//    public String delete(@PathVariable int id, Model model) {
+//        model.addAttribute("book", bookService.findById(id));
+//        return "book/delete";
+//    }
+//
+//    @PostMapping("/delete")
+//    public String delete(@RequestParam Integer id, RedirectAttributes redirect) {
+//        bookService.remove(bookService.findById(id));
+//        redirect.addFlashAttribute("message", "Successfully removed");
+//        return "redirect:/book";
+//    }
+//
+//    @GetMapping("/create")
+//    public String create(Model model) {
+//        model.addAttribute("book", new Book());
+//        return "book/create";
+//    }
+//
+//    @PostMapping("/create")
+//    public String create(@ModelAttribute Book book, RedirectAttributes redirect) {
+//        bookService.save(book);
+//        redirect.addFlashAttribute("message", "Successfully added");
+//        return "redirect:/book";
+//    }
+//
+//    @GetMapping("/{id}/edit")
+//    public String edit(@PathVariable int id, Model model) {
+//        model.addAttribute("book", bookService.findById(id));
+//        return "book/edit";
+//    }
+//
+//    @PostMapping("/edit")
+//    public String edit(@ModelAttribute Book book, RedirectAttributes redirect) {
+//        bookService.update(book);
+//        redirect.addFlashAttribute("message", "Successfully updated");
+//        return "redirect:/book";
+//    }
 }

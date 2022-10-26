@@ -15,6 +15,6 @@ public interface IOrderService {
 
     void remove(BookOrder bookOrder);
 
-    BookOrder findByOtp(String otp);
+    BookOrder findByOtp(int otp);
 
 }
