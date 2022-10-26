@@ -11,7 +11,7 @@ import product_management.service.IProductService;
 import java.util.List;
 
 @Controller
-@RequestMapping({"/product","/"})
+@RequestMapping({"/product", "/"})
 public class ProductController {
 
     @Autowired

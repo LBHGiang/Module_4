@@ -16,12 +16,12 @@ public class EmployeeController {
     private IConversionService service;
 
     @GetMapping("/showform")
-    public String showForm(Model model){
+    public String showForm(Model model) {
         model.addAttribute("employee", new Employee());
         return "create";
     }
 
-    @PostMapping(value="/addEmployee")
+    @PostMapping(value = "/addEmployee")
     public String submit(@ModelAttribute("employee") Employee employee, Model model) {
         model.addAttribute("name", employee.getName());
         model.addAttribute("contactNumber", employee.getContactNumber());

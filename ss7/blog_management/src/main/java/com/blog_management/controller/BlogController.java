@@ -54,8 +54,8 @@ public class BlogController {
                          @PageableDefault(value = 3) Pageable pageable) {
         Page<Blog> blogs = blogService.findByTitleAndCategory(searchTitle, searchCategory, pageable);
         model.addAttribute("blogs", blogs);
-        model.addAttribute("searchTitle",searchTitle);
-        model.addAttribute("searchCategory",searchCategory);
+        model.addAttribute("searchTitle", searchTitle);
+        model.addAttribute("searchCategory", searchCategory);
         return "blog/list";
     }
 

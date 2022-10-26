@@ -26,7 +26,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit" value="Convert" ></td>
+                <td><input type="submit" value="Convert"></td>
             </tr>
         </table>
     </fieldset>

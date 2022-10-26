@@ -6,22 +6,27 @@ public class UserDto {
 
     private Integer id;
 
-    @Pattern(regexp = "^[a-zA-Z]{5,45}$", message = "First Name is from 5 to 45 alphabetic characters ")
+    @NotBlank(message = "Can't be empty")
+    @Pattern(regexp = "^\\p{L}+(\\s\\p{L}+)*$", message = "First Name is incorrect format")
+    @Size(min = 5, max = 45, message = "Size of First Name is from 5 to 45")
     private String firstName;
 
-    @Pattern(regexp = "^[a-zA-Z]{5,45}$", message = "Last Name is from 5 to 45 alphabetic characters ")
+    @NotBlank(message = "Can't be empty")
+    @Pattern(regexp = "^\\p{L}+(\\s\\p{L}+)*$", message = "Last Name is incorrect format")
+    @Size(min = 5, max = 45, message = "Size of Last Name is from 5 to 45")
     private String lastName;
 
+    @NotBlank(message = "Can't be empty")
     @Pattern(regexp = "^[0-9]{9}$", message = "Phone number is a string of 9 digits")
     private String phoneNumber;
 
-    @NotNull(message = "Please fill in the information")
+    @NotNull(message = "Can't be empty")
     @Min(value = 18, message = "Age must be greater than or equal to 18")
     private Integer age;
 
 
-    @NotBlank(message = "Please fill in the information")
-    @Pattern(regexp = "^[A-Za-z0-9]+@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)$", message = "Email is not in the correct format")
+    @NotBlank(message = "Can't be empty")
+    @Pattern(regexp = "^[A-Za-z0-9]+@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)$", message = "Email is incorrect format")
     private String email;
 
     public UserDto() {
@@ -83,4 +88,5 @@ public class UserDto {
     public void setEmail(String email) {
         this.email = email;
     }
+
 }

@@ -32,7 +32,7 @@
     </fieldset>
 </form>
 <c:if test="${result!=null}">
-<h1>Done! you chose ${result} </h1>
+    <h1>Done! you chose ${result} </h1>
 </c:if>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

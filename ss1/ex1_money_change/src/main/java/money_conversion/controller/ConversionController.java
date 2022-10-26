@@ -17,7 +17,7 @@ public class ConversionController {
     private IConversionService service;
 
     @GetMapping
-    public String showForm(){
+    public String showForm() {
         return "list";
     }
 
@@ -26,6 +26,5 @@ public class ConversionController {
         return new ModelAndView("list", "vnd", service.change(usd, rate));
     }
 
-    
 
 }

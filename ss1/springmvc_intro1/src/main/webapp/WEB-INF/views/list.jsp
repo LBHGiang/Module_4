@@ -30,7 +30,7 @@
             <td>${student.gender}</td>
             <td><c:forEach items="${student.language}" var="lang">
                 <span>${lang}</span>
-                </c:forEach>
+            </c:forEach>
             </td>
         </tr>
     </c:forEach>

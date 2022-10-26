@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>Edit Customer</h3>
+<p>
+    <a href="/library">
+        Back to library list
+    </a>
+</p>
+<div id="form">
+    <form action="/library/edit" th:object="${songDto}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label>Title</label>
+            <input type="text" th:field="*{title}"/>
+        </div>
+        <div>
+            <label>Category</label>
+            <select th:field="*{bookOrder}">
+                <option th:each="bookOrder: ${categories}"
+                        th:value="${bookOrder.id}" th:text="${bookOrder.name}"></option>
+            </select>
+        </div>
+        <div>
+            <label>Author</label>
+            <input type="text" th:field="*{author}"/>
+        </div>
+        <div>
+            <label>Content</label>
+            <textarea th:field="*{body}"/>
+        </div>
+        <input type="submit" value="Edit"/>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

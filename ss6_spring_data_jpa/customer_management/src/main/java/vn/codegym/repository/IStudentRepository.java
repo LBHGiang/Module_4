@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface IStudentRepository extends JpaRepository<Student, Integer> {
     List<Student> findByName(String keyword);
+
     List<Student> findByNameContaining(String keyword);
 
     /*Tìm theo tên tương đối và ID lớn hơn 2*/
@@ -17,7 +18,6 @@ public interface IStudentRepository extends JpaRepository<Student, Integer> {
 
     @Query(value = "select * from Student where name =:keyword", nativeQuery = true)
     List<Student> searchByName(@Param("keyword") String keyword);
-
 
 
 }

@@ -53,7 +53,7 @@ public class SongController {
 
     @PostMapping("/edit")
     public String edit(@Validated @ModelAttribute SongDto songDto,
-                         BindingResult bindingResult, Model model, RedirectAttributes redirect) {
+                       BindingResult bindingResult, Model model, RedirectAttributes redirect) {
         if (!bindingResult.hasErrors()) {
             Song song = new Song();
             BeanUtils.copyProperties(songDto, song);
