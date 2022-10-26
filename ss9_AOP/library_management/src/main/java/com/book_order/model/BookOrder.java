@@ -10,6 +10,8 @@ public class BookOrder {
 
     private Integer otp;
     private String orderDate;
+
+    @Column
     private String returnDate;
 
     @ManyToOne
