@@ -55,25 +55,26 @@ public class BookOrderController {
     }
 
     @GetMapping("/return")
-    public String showReturnConfirmForm(@RequestParam int otp, RedirectAttributes redirect) {
+    public String returnBook(@RequestParam int otp, RedirectAttributes redirect) {
         BookOrder bookOrder = orderService.findByOtp(otp);
-        if (bookOrder == null) {
-            redirect.addFlashAttribute("message", "OTP invalid!");
 
-        } else {
-            String returnDate = String.valueOf(new Date(System.currentTimeMillis()));
-            bookOrder.setReturnDate(returnDate);
-            orderService.save(bookOrder);
+        String returnDate = String.valueOf(new Date(System.currentTimeMillis()));
+        bookOrder.setReturnDate(returnDate);
+        orderService.save(bookOrder);
 
-            Book book = bookOrder.getBook();
-            book.setStock(book.getStock() + 1);
-            bookService.save(book);
+        Book book = bookOrder.getBook();
+        book.setStock(book.getStock() + 1);
+        bookService.save(book);
 
-            redirect.addFlashAttribute("message", "Return book successful! Thank you!");
-        }
+        redirect.addFlashAttribute("message", "Return book successful! Thank you!");
         return "redirect:/book";
     }
 
+    @ExceptionHandler
+    public String handleException(Exception e, Model model) {
+        model.addAttribute("message", "OTP is invalid!");
+        return "error";
+    }
 
 //    @GetMapping("/{id}/view")
 //    public String details(@PathVariable int id, Model model) {
