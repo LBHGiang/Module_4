@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/bootstrap_layout :: head">
+    <link rel="stylesheet" href="../details_css.css">
+    <link rel="stylesheet" href=" https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href=" https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js">
+
+</head>
+
+<body>
+<div class="container-xl" style="margin-top: 50px">
+    <div class="table-title">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Phone <b>Shopping</b></h2>
+            </div>
+            <div class="col-sm-6">
+                <form action="" novalidate="novalidate">
+                    <div class="search-box">
+                        <input type="text" name="otp" placeholder="..Search..&hellip;">
+                    </div>
+                    <button class="btn btn-success" type="submit">Search<i
+                            class="material-icons">&#xE8B6;</i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="cart_section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <div class="cart_container">
+                    <div class="cart_title">Product Details</div>
+                    <div class="cart_items">
+                        <ul class="cart_list">
+                            <li class="cart_item clearfix">
+                                <div class="cart_item_image"><img th:src="@{${product.imageUrl}}" alt=""></div>
+                                <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
+                                    <div class="cart_item_name cart_info_col">
+                                        <div class="cart_item_title">Name</div>
+                                        <div class="cart_item_text" th:text="${product.name}"></div>
+                                    </div>
+                                    <div class="cart_item_color cart_info_col">
+                                        <div class="cart_item_title">Description</div>
+                                        <div class="cart_item_text" th:text="${product.description}">
+                                        </div>
+                                    </div>
+                                    <div class="cart_item_quantity cart_info_col">
+                                        <div class="cart_item_title">Discount</div>
+                                        <div class="cart_item_text" th:text="${product.discount}"></div>
+                                    </div>
+                                    <div class="cart_item_price cart_info_col">
+                                        <div class="cart_item_title">Price</div>
+                                        <div class="cart_item_text" th:text="${product.price}"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="cart_buttons">
+                        <a type="button" class="button cart_button_clear" href="/">Back to Home</a>
+                        <a type="button" class="button cart_button_checkout" th:href="@{/{id}/add(id=${product.id})}">Add
+                            to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="/bootstrap_layout :: footer"></footer>
+</body>
+</html>
