@@ -27,19 +27,20 @@
 
 <div class="container d-flex justify-content-center mt-50 mb-50">
     <div class="row">
-            <div class="col-md-10">
-                <div th:each="product:${products}">
+        <div class="col-md-9">
+            <div th:each="product:${products}">
                 <div class="card card-body">
                     <div class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
                         <div class="mr-2 mb-3 mb-lg-0">
 
-                            <img th:src="@{product.imageUrl}" width="150" height="150" alt="">
+                            <img th:src="@{${product.imageUrl}}" width="150" height="150" alt="">
 
                         </div>
 
                         <div class="media-body">
                             <h6 class="media-title font-weight-semibold">
-                                <a th:href="@{/{id}/details(id=${product.id})}" data-abc="true"><h3 th:text="${product.name}"></h3></a>
+                                <a th:href="@{/{id}/details(id=${product.id})}" data-abc="true"><h3
+                                        th:text="${product.name}"></h3></a>
                             </h6>
 
                             <ul class="list-inline list-inline-dotted mb-3 mb-lg-2">
@@ -49,10 +50,11 @@
                                 </li>
                             </ul>
 
-                                <p class="mb-3" th:text="${product.description}"></p>
+                            <p class="mb-3" th:text="${product.description}"></p>
 
                             <ul class="list-inline list-inline-dotted mb-0">
-                                <li class="list-inline-item">All items from <a href="#" data-abc="true">Le Ba Hoang Giang</a>
+                                <li class="list-inline-item">All items from <a href="#" data-abc="true">Le Ba Hoang
+                                    Giang</a>
                                 </li>
                                 <li class="list-inline-item">Class <a href="#" data-abc="true">C0622G1</a></li>
                             </ul>
@@ -64,23 +66,20 @@
 
                             <div class="text-muted">1985 reviews</div>
 
-                            <a type="button" class="btn btn-warning mt-4 text-white" th:href="@{/{id}/add(id=${product.id})}">
+                            <a type="button" class="btn btn-warning mt-4 text-white"
+                               th:href="@{/{id}/add(id=${product.id})}">
                                 <i class="icon-cart-add mr-2"></i> Add to cart</a>
                         </div>
                     </div>
                 </div>
-
-
-
-
-                <div class="col-md-2" th:if="${historyProduct}">
-                    <div class="card sticky-top border-0">
-                        <img th:src="${historyProduct.image}" class="card-img-top">
-                        <div class="card-body">
-                            <h4 class="card-title" th:text="${historyProduct.name}"></h4>
-                            <p class="card-text" th:text="${historyProduct.price}"></p>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <div class="col-md-3" th:if="${historyProduct}">
+            <div class="card sticky-top border-0">
+                <img th:src="${historyProduct.imageUrl}" class="card-img-top">
+                <div class="card-body">
+                    <h4 class="card-title" th:text="${historyProduct.name}"></h4>
+                    <p class="card-text" th:text="${historyProduct.price}"></p>
                 </div>
             </div>
         </div>

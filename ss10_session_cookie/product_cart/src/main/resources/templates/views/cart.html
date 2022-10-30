@@ -62,9 +62,10 @@
                             </div>
                         </td>
                         <td class="text-right font-weight-semibold align-middle p-4" th:text="${entry.key.price}"></td>
-                        <td class="align-middle p-4"><input type="number" class="form-control text-center" th:value="${entry.value}"></td>
+                        <td class="align-middle p-4"><input type="number" class="form-control text-center" th:value="${entry.value}"
+                        th:onchange=""></td>
                         <td class="text-right font-weight-semibold align-middle p-4" th:text="${entry.key.price * entry.value}"></td>
-                        <td class="text-center align-middle px-0"><a href="#" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">X</a></td>
+                        <td class="text-center align-middle px-0"><a th:href="@{/cart/{id}/remove(id=${entry.key.id})}" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">Remove</a></td>
                     </tr>
                     </div>
                     </tbody>

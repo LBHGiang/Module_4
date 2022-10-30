@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/bootstrap_layout :: head">
-    <link rel="stylesheet" href="../details_css.css">
-    <link rel="stylesheet" href=" https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href=" https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js">
-
+    <link rel="stylesheet" href="../cart_css.css">
 </head>
 
 <body>
@@ -28,45 +25,52 @@
     </div>
 </div>
 
-<div class="cart_section">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-10 offset-lg-1">
-                <div class="cart_container">
-                    <div class="cart_title">Product Details</div>
-                    <div class="cart_items">
-                        <ul class="cart_list">
-                            <li class="cart_item clearfix">
-                                <div class="cart_item_image"><img th:src="@{${product.imageUrl}}" alt=""></div>
-                                <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
-                                    <div class="cart_item_name cart_info_col">
-                                        <div class="cart_item_title">Name</div>
-                                        <div class="cart_item_text" th:text="${product.name}"></div>
-                                    </div>
-                                    <div class="cart_item_color cart_info_col">
-                                        <div class="cart_item_title">Description</div>
-                                        <div class="cart_item_text" th:text="${product.description}">
-                                        </div>
-                                    </div>
-                                    <div class="cart_item_quantity cart_info_col">
-                                        <div class="cart_item_title">Discount</div>
-                                        <div class="cart_item_text" th:text="${product.discount}"></div>
-                                    </div>
-                                    <div class="cart_item_price cart_info_col">
-                                        <div class="cart_item_title">Price</div>
-                                        <div class="cart_item_text" th:text="${product.price}"></div>
-                                    </div>
+<div class="container px-3 my-5 clearfix">
+    <div class="card">
+        <div class="card-header">
+            <h2>Product Details</h2>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered m-0">
+                    <thead>
+                    <tr>
+                        <!-- Set columns width -->
+                        <th class="text-center py-3 px-4" style="min-width: 400px;">Product Name &amp; Details</th>
+                        <th class="text-center py-3 px-4" style="width: 120px;">Discount</th>
+                        <th class="text-center py-3 px-4" style="width: 100px;">Price</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="p-4">
+                            <div class="media align-items-center">
+                                <img th:src="@{${product.imageUrl}}" class="d-block ui-w-40 ui-bordered mr-4" alt="">
+                                <div class="media-body">
+                                    <span th:text="${product.name}"></span>
+                                    <small>
+                                        <p class="text-muted" th:text="${product.description}"></p>
+                                    </small>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="cart_buttons">
-                        <a type="button" class="button cart_button_clear" href="/">Back to Home</a>
-                        <a type="button" class="button cart_button_checkout" th:href="@{/{id}/add(id=${product.id})}">Add
-                            to Cart</a>
-                    </div>
-                </div>
+                            </div>
+                        </td>
+                        <td class="text-center font-weight-semibold align-middle p-4"
+                            th:text="${product.discount}"></td>
+                        <td class="text-center font-weight-semibold align-middle p-4" th:text="${product.price}"></td>
+                        <td><a type="button" class="btn btn-warning mt-4 text-white"
+                               th:href="@{/{id}/add(id=${product.id})}">
+                            <i class="icon-cart-add mr-2"></i> Add to cart</a></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
+
+            <div class="float-right">
+                <a type="button" class="btn btn-lg btn-primary mt-2"
+                   href="/">Back to shopping</a>
+            </div>
+
         </div>
     </div>
 </div>

@@ -29,22 +29,22 @@ public class CartDto {
         }
     }
 
-    public long getTotal(Long id) {
-        long total = 0;
-        for (Map.Entry<ProductDto, Integer> entry : products.entrySet()) {
-            if (entry.getKey().getId().equals(id)) {
-                total = entry.getKey().getPrice() * entry.getValue();
-            }
-        }
-        return total;
-    }
-
     public long getTotalPrice() {
         long totalPrice = 0;
         for (Map.Entry<ProductDto, Integer> entry : products.entrySet()) {
             totalPrice += entry.getKey().getPrice() * entry.getValue();
         }
         return totalPrice;
+    }
+
+    public void removeProduct(Long id){
+        for (Map.Entry<ProductDto, Integer> entry : products.entrySet()) {
+            if(entry.getKey().getId().equals(id)){
+                products.remove(entry.getKey());
+            }
+        }
+
+
     }
 
 }
