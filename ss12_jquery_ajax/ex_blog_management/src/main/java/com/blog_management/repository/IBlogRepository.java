@@ -12,8 +12,10 @@ import java.util.List;
 
 public interface IBlogRepository extends JpaRepository<Blog, Integer> {
 
-    @Query(value = "select * from Blog where title like %:keyword%", nativeQuery = true)
-    List<Blog> findByTitleContaining(@Param("keyword") String keyword);
+    @Query(value = "select * from Blog where title like %:keyword% limit :offset,:limit", nativeQuery = true)
+    List<Blog> findByTitleContaining(@Param("keyword") String keyword,
+                                     @Param("offset") int offset,
+                                     @Param("limit") int limit);
 
     Page<Blog> findByTitleContaining(String searchTitle, Pageable pageable);
 

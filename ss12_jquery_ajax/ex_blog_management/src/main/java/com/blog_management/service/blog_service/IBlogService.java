@@ -24,7 +24,7 @@ public interface IBlogService {
 
     Page<Blog> findByTitle(String searchTitle, Pageable pageable);
 
-    List<Blog> findByTitle(String searchTitle);
+    List<Blog> findByTitle(String searchTitle, int offset, int limit);
 
     List<Blog> findByCategory(int id);
 }

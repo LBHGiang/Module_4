@@ -44,6 +44,20 @@ public class RestStudentController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         Student student = optionalStudent.get();
+        studentDto.setId(student.getId());
+        BeanUtils.copyProperties(studentDto, student);
+        studentService.save(student);
+        return new ResponseEntity<>(student, HttpStatus.OK);
+    }
+
+    @PatchMapping("/students/{id}")
+    public ResponseEntity<Student> update1(@RequestBody StudentDto studentDto, @PathVariable Long id) {
+        Optional<Student> optionalStudent = studentService.findById(id);
+        if (!optionalStudent.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Student student = optionalStudent.get();
+        studentDto.setId(student.getId());
         BeanUtils.copyProperties(studentDto, student);
         studentService.save(student);
         return new ResponseEntity<>(student, HttpStatus.OK);

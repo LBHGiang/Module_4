@@ -8,9 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/blogs")
 public class RestBlogController {
@@ -36,16 +36,14 @@ public class RestBlogController {
         return new ResponseEntity<>(blog, HttpStatus.OK);
     }
 
-    @GetMapping("/search?searchName=keyword")
-    public ResponseEntity<List<Blog>> searchList(@RequestParam(value = "keyword", defaultValue = "")
-                                                             String keyword){
-        List<Blog> blogList = blogService.findByTitle(keyword);
+    @GetMapping("/search")
+    public ResponseEntity<List<Blog>> searchList(@RequestParam(value = "searchName", defaultValue = "") String searchName,
+                                                 @RequestParam(value = "offset", defaultValue = "0") int offset,
+                                                 @RequestParam(value = "limit", defaultValue = "3") int limit) {
+        List<Blog> blogList = blogService.findByTitle(searchName, offset, limit);
         if (blogList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(blogList, HttpStatus.OK);
     }
-
-
-
 }
