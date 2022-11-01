@@ -14,8 +14,8 @@
                     <div class="col-sm-6">
                         <form action="/blog" novalidate="novalidate">
                             <div class="search-box">
-                                <input type="text" name="searchTitle"
-                                       th:value="${searchTitle}" placeholder="Search by Title&hellip;">
+                                <input name="searchTitle" placeholder="Search by Title&hellip;"
+                                       th:value="${searchTitle}" type="text">
                             </div>
                             <select name="searchCategory">
                                 <option th:if="${searchCategory}!=''"

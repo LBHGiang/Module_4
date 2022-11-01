@@ -11,11 +11,11 @@ import java.util.List;
 
 
 public interface IBlogRepository extends JpaRepository<Blog, Integer> {
-//    @Query(value = "select * from Blog where name =:keyword", nativeQuery = true)
-//    List<Blog> searchByName(@Param("keyword") String keyword);
+
+    @Query(value = "select * from Blog where title like %:keyword%", nativeQuery = true)
+    List<Blog> findByTitleContaining(@Param("keyword") String keyword);
 
     Page<Blog> findByTitleContaining(String searchTitle, Pageable pageable);
-
 
     @Query(value = "select b.* from `blog` b inner join `category` c " +
             "on b.category_id = c.id " +
