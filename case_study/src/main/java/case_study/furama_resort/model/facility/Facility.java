@@ -3,6 +3,7 @@ package case_study.furama_resort.model.facility;
 import case_study.furama_resort.model.contract.Contract;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Facility {
@@ -29,13 +30,13 @@ public class Facility {
     @JoinColumn(name = "facility_type_id", referencedColumnName = "id")
     private FacilityType facilityType;
 
-    @OneToOne(mappedBy = "facility")
-    private Contract contract;
+    @OneToMany(mappedBy = "facility")
+    private Set<Contract> contracts;
 
     public Facility() {
     }
 
-    public Facility(int id, String name, int area, double cost, int maxPeople, String standardRoom, String descriptionOtherConvenience, double poolArea, int numberOfFloors, String facilityFree, int status, RentType rentType, FacilityType facilityType, Contract contract) {
+    public Facility(int id, String name, int area, double cost, int maxPeople, String standardRoom, String descriptionOtherConvenience, double poolArea, int numberOfFloors, String facilityFree, int status, RentType rentType, FacilityType facilityType, Set<Contract> contracts) {
         this.id = id;
         this.name = name;
         this.area = area;
@@ -49,7 +50,7 @@ public class Facility {
         this.status = status;
         this.rentType = rentType;
         this.facilityType = facilityType;
-        this.contract = contract;
+        this.contracts = contracts;
     }
 
     public int getId() {
@@ -156,11 +157,11 @@ public class Facility {
         this.facilityType = facilityType;
     }
 
-    public Contract getContract() {
-        return contract;
+    public Set<Contract> getContracts() {
+        return contracts;
     }
 
-    public void setContract(Contract contract) {
-        this.contract = contract;
+    public void setContracts(Set<Contract> contracts) {
+        this.contracts = contracts;
     }
 }

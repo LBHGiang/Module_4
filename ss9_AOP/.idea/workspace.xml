@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7b87cdb0-fbd5-48e5-b39b-814bbf47e773" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../case_study/src/main/java/case_study/furama_resort/model/dto/CustomerDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../case_study/src/main/java/case_study/furama_resort/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../case_study/src/main/java/case_study/furama_resort/controller/CustomerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../case_study/src/main/java/case_study/furama_resort/model/contract/Contract.java" beforeDir="false" afterPath="$PROJECT_DIR$/../case_study/src/main/java/case_study/furama_resort/model/contract/Contract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../case_study/src/main/java/case_study/furama_resort/model/facility/Facility.java" beforeDir="false" afterPath="$PROJECT_DIR$/../case_study/src/main/java/case_study/furama_resort/model/facility/Facility.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2H40zna1j1yUMetXHLduNx2qC01" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7b87cdb0-fbd5-48e5-b39b-814bbf47e773" name="Default Changelist" comment="" />
+      <created>1667529312556</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667529312556</updated>
+      <workItem from="1667529314091" duration="18000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+</project>

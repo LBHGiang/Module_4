@@ -54,22 +54,22 @@
                     <th>Actions</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr th:each="blog,status:${blogs}">
-                    <td th:text="${blogs.getSize() * blogs.getNumber + status.count}"></td>
-                    <td><a th:href="@{/blog/{id}/view(id=${blog.id})}"
-                           th:text="${blog.title}"></a></td>
-                    <td th:text="${blog.category.name}"></td>
-                    <td th:text="${blog.author}"></td>
-                    <td th:text="${blog.time}"></td>
-                    <td><a th:href="@{/blog/{id}/edit(id=${blog.id})}" class="edit">
-                        <i class="material-icons" title="Edit">&#xE254;
-                        </i></a>
-                        <a th:href="@{/blog/{id}/delete(id=${blog.id})}" class="delete">
-                            <i class="material-icons" title="Delete">&#xE872;</i>
-                        </a></td>
-                </tr>
-                </tbody>
+                    <tbody>
+                    <tr th:each="blog,status:${blogs}">
+                        <td th:text="${blogs.getSize() * blogs.getNumber + status.count}"></td>
+                        <td><a th:href="@{/blog/{id}/view(id=${blog.id})}"
+                               th:text="${blog.title}"></a></td>
+                        <td th:text="${blog.category.name}"></td>
+                        <td th:text="${blog.author}"></td>
+                        <td th:text="${blog.time}"></td>
+                        <td><a th:href="@{/blog/{id}/edit(id=${blog.id})}" class="edit">
+                            <i class="material-icons" title="Edit">&#xE254;
+                            </i></a>
+                            <a th:href="@{/blog/{id}/delete(id=${blog.id})}" class="delete">
+                                <i class="material-icons" title="Delete">&#xE872;</i>
+                            </a></td>
+                    </tr>
+                    </tbody>
             </table>
             <div class="clearfix">
                 <div class="pagination">

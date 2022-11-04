@@ -21,9 +21,37 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
                 crossorigin="anonymous"></script>
-
+        <style>
+            body {
+                background: url("../image/bg_img.jpg") no-repeat center/cover;
+                height: 100vh;
+                width: 100vw;
+            }
+        </style>
     </head>
     <body>
+        <!--        Header-->
+        <div th:fragment="header">
+            <div class="header-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3 align-items-center bestel-logo">
+                            <a href="/home" class="header-logo">
+                                <img
+                                        src="/image/logo_img.png" alt="logo "
+                                        class="img-fluid" style="margin: 20px">
+                            </a>
+                        </div>
+                        <div class="col-7 align-items-center bestel-logo">
+                        </div>
+                        <div class="col-2 align-items-center bestel-logo">
+                            <div style="margin-top: 40px; color: #9933cc">Lê Bá Hoàng Giang</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!--        Navbar-->
         <div th:fragment="navbar">
             <div class="header-nav js-header-nav sticky bg-light">
@@ -33,7 +61,7 @@
                             <ul id="menu-furama-vi" class="menu navbar-nav w-100 js-main-menu">
                                 <li id="nav-menu-item-5006"
                                     class="nav-item  menu-item-even menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page">
-                                    <a href="/furama_resort/home.jsp" class="nav-link main-menu-link">HOME</a>
+                                    <a href="/home" class="nav-link main-menu-link">HOME</a>
                                 </li>
                                 <li id="nav-menu-item-5007"
                                     class="nav-item  menu-item-even menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page">
@@ -57,13 +85,13 @@
                                             <hr class="dropdown-divider">
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="/facilities?action=villa">VILLA</a>
+                                            <a class="dropdown-item" href="/facilities/villas">VILLA</a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="/facilities?action=house">HOUSE</a>
+                                            <a class="dropdown-item" href="/facilities/houses">HOUSE</a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="/facilities?action=room">ROOM</a>
+                                            <a class="dropdown-item" href="/facilities/rooms">ROOM</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -74,16 +102,36 @@
                                     </a>
                                 </li>
                             </ul>
+
+                            <form class="d-flex m-0 p-0 align-items-center justify-content-end" style="flex: 1"
+                                  action="/customers" method="get">
+                                <span class="mx-3">Name</span>
+                                <input name="searchName" placeholder="Tìm theo tên&hellip;"
+                                       th:value="${searchName}" type="text" aria-label="Search">
+                                <span class="mx-3">Email</span>
+                                <input name="searchEmail" placeholder="Tìm theo tên&hellip;"
+                                       th:value="${searchEmail}" type="text" aria-label="Search">
+                                <select name="searchCustomerType" class="mx-3">
+                                    <option th:if="${searchCustomerType}!=''"
+                                            th:value="${searchCustomerType}"
+                                            th:text="${searchCustomerType}"></option>
+                                    <option th:value="''"
+                                            th:text="'--All Type--'"></option>
+                                    <option th:each="customerType: ${customerTypes}"
+                                            th:value="${customerType.name}"
+                                            th:text="${customerType.name}"></option>
+                                </select>
+                                <button class="btn btn-outline-success" type="submit">Tìm kiếm
+                                </button>
+                            </form>
                         </div>
                     </nav>
                 </div>
             </div>
         </div>
 
-
         <footer th:fragment="footer">
             &copy; C0622G1 Lê Bá Hoàng Giang - Thank you for using our service!
         </footer>
     </body>
-
 </html>

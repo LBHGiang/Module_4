@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout/layout :: head">
+</head>
+<style>
+    body {
+        background: url("../image/bg_img.jpg") no-repeat center/cover;
+        height: 100vh;
+        width: 100vw;
+    }
+</style>
+<body>
+<div th:replace="/layout/layout :: header">
+</div>
+<div th:replace="/layout/customer_create_edit :: navbar">
+</div>
+
+<div class="container-fluid">
+    <div class="row" style="width: 100%; padding: 0; margin: 0;">
+        <div id="content">
+            <div class="notify">
+                <div th:if="${message}">
+                    <span th:text="${message}"></span>
+                </div>
+            </div>
+
+            <h1 style="text-align: center; color: blue">Thêm mới Khách Hàng</h1>
+
+            <form action="/customers/create" th:object="${customerDto}"
+                  method="POST" novalidate="novalidate">
+                <fieldset style="width: 50%; margin-left: 25%">
+                    <legend>Nhập thông tin</legend>
+                    <table class="table table-striped" style="text-align: left">
+                        <input type="hidden" th:field="*{id}"/>
+                        <tr>
+                            <td>Tên</td>
+                            <td><input type="text" th:field="*{name}"></td>
+                        </tr>
+                        <tr>
+                            <td>Ngày sinh</td>
+                            <td><input type="text" th:field="*{dateOfBirth}"></td>
+                        </tr>
+                        <tr>
+                            <td>Giới tính</td>
+                            <td>
+                                <input type="radio" th:field="*{gender}" value="1">Nam
+                                <input type="radio" th:field="*{gender}" value="0">Nữ
+                                <input type="radio" th:field="*{gender}" value="2">Khác
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CMND</td>
+                            <td><input type="text" th:field="*{idCard}"></td>
+                        </tr>
+                        <tr>
+                            <td>SĐT</td>
+                            <td><input type="text" th:field="*{phoneNumber}"></td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td><input type="text" th:field="*{email}"></td>
+                        </tr>
+                        <tr>
+                            <td>Địa chỉ</td>
+                            <td><input type="text" th:field="*{address}"></td>
+                        </tr>
+                        <tr>
+                            <td>Loại khách</td>
+                            <td><select th:field="*{customerType}">
+                                <option th:each="customerType: ${customerTypes}"
+                                        th:value="${customerType.id}" th:text="${customerType.name}"></option>
+                            </select></td>
+                        </tr>
+
+
+                        <tr>
+                            <td><a href="/employees?action=create" class="btn btn-primary" role="button">Xóa tất cả
+                                dữ
+                                liệu</a></td>
+                            <td><input required type="submit" value="Thêm mới" class="btn btn-primary"></td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<footer th:replace="/layout/layout :: footer"></footer>
+</body>
+</html>

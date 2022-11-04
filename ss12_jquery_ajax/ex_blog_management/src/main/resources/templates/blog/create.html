@@ -12,6 +12,7 @@
     <form action="/blog/create" th:object="${blog}"
           method="POST" novalidate="novalidate">
         <input type="hidden" th:field="*{id}"/>
+
         <div>
             <label>Title</label>
             <input type="text" th:field="*{title}"/>
