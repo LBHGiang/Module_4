@@ -79,12 +79,21 @@ public class BlogController {
         return "blog/create";
     }
 
+//    @PostMapping("/create")
+//    public String create(@ModelAttribute Blog blog, Model model) {
+//        blog.setTime(new Date().toString());
+//        blogService.save(blog);
+//        model.addAttribute("message", "Successfully added");
+//        model.addAttribute("blog", new Blog());
+//        return "blog/create";
+//    }
+
     @PostMapping("/create")
     public String create(@ModelAttribute Blog blog, RedirectAttributes redirect) {
         blog.setTime(new Date().toString());
         blogService.save(blog);
         redirect.addFlashAttribute("message", "Successfully added");
-        return "redirect:/blog";
+        return "redirect:/blog/create";
     }
 
     @GetMapping("/{id}/edit")

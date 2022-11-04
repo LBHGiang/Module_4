@@ -1,10 +1,9 @@
-package codegym.danang.demo.dao;
+package exercise.security.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-
-import codegym.danang.demo.entity.AppUser;
+import exercise.security.entity.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

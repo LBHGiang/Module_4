@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2f49a352-3d86-45c4-89e6-a87fd3b47f42" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../ss12_jquery_ajax/student_management_login/src/main/java/practice/student_management_login/configuration/WebSecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ss12_jquery_ajax/student_management_login/src/main/java/practice/student_management_login/controller/StudentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ss12_jquery_ajax/student_management_login/src/main/java/practice/student_management_login/model/MyUserDetail.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ss12_jquery_ajax/student_management_login/src/main/java/practice/student_management_login/model/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ss12_jquery_ajax/student_management_login/src/main/java/practice/student_management_login/model/Student.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ss12_jquery_ajax/student_management_login/src/main/java/practice/student_management_login/model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ss12_jquery_ajax/student_management_login/src/main/java/practice/student_management_login/repository/IStudentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ss12_jquery_ajax/student_management_login/src/main/java/practice/student_management_login/repository/IUserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ss12_jquery_ajax/student_management_login/src/main/java/practice/student_management_login/service/IStudentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ss12_jquery_ajax/student_management_login/src/main/java/practice/student_management_login/service/IUserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ss12_jquery_ajax/student_management_login/src/main/java/practice/student_management_login/service/StudentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ss12_jquery_ajax/student_management_login/src/main/java/practice/student_management_login/service/UserDetailService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ss12_jquery_ajax/student_management_login/src/main/java/practice/student_management_login/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ss12_jquery_ajax/student_management_login/src/main/resources/templates/bootstrap_layout.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ss12_jquery_ajax/student_management_login/src/main/resources/templates/students/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ss12_jquery_ajax/ex_blog_management/src/main/resources/templates/view(ss12_ex).html" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2GyyoaohNQDW6tlJugMqAPZny5h" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2f49a352-3d86-45c4-89e6-a87fd3b47f42" name="Default Changelist" comment="" />
+      <created>1667375293526</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667375293526</updated>
+      <workItem from="1667375294815" duration="5000" />
+    </task>
+    <servers />
+  </component>
+</project>

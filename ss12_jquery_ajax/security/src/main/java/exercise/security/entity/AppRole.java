@@ -1,4 +1,4 @@
-package codegym.danang.demo.entity;
+package exercise.security.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,10 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/bootstrap_layout :: head">
 </head>
 <body>
-$END$
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h2>Manage <b>Student</b></h2>
+                    </div>
+                    <div class="col-sm-6">
+                        <form action="/blog" novalidate="novalidate">
+                            <div class="search-box">
+                                <input name="searchTitle" placeholder="Search by Title&hellip;"
+                                       th:value="${searchTitle}" type="text">
+                            </div>
+                            <button class="btn btn-success" type="submit">Search<i
+                                    class="material-icons">&#xE8B6;</i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-sm-3">
+                        <a href="/blog/create" class="btn btn-success"><i
+                                class="material-icons">&#xE147;</i> <span>Add New Blog</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="notify">
+                <div th:if="${message}">
+                    <span th:text="${message}"></span>
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Age</th>
+<!--                    <th>Actions</th>-->
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="student,status:${students}">
+                    <td th:text="${status.count}"></td>
+                    <td th:text="${student.id}"></td>
+                    <td><a th:href="@{/student/{id}/view(id=${student.id})}"
+                           th:text="${student.name}"></a></td>
+                    <td th:text="${student.age}"></td>
+                    <td><a th:href="@{/student/{id}/edit(id=${student.id})}" class="edit">
+                        <i class="material-icons" title="Edit">&#xE254;
+                        </i></a>
+                        <a th:href="@{/student/{id}/delete(id=${student.id})}" class="delete">
+                            <i class="material-icons" title="Delete">&#xE872;</i>
+                        </a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="/bootstrap_layout :: footer"></footer>
 </body>
 </html>

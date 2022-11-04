@@ -1,4 +1,4 @@
-package codegym.danang.demo.util;
+package exercise.security.util;
 
 import java.util.Collection;
 

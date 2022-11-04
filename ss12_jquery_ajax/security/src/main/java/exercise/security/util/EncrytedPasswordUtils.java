@@ -1,4 +1,4 @@
-package codegym.danang.demo.util;
+package exercise.security.util;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

@@ -1,8 +1,8 @@
-package codegym.danang.demo.service;
+package exercise.security.service;
 
-import codegym.danang.demo.dao.AppRoleDAO;
-import codegym.danang.demo.dao.AppUserDAO;
-import codegym.danang.demo.entity.AppUser;
+import exercise.security.dao.AppRoleDAO;
+import exercise.security.dao.AppUserDAO;
+import exercise.security.entity.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -8,6 +8,11 @@
         Back to blog list
     </a>
 </p>
+<div class="notify">
+    <div th:if="${message}">
+        <span th:text="${message}"></span>
+    </div>
+</div>
 <div id="form">
     <form action="/blog/create" th:object="${blog}"
           method="POST" novalidate="novalidate">
