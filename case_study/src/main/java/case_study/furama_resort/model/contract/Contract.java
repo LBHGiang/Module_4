@@ -5,7 +5,6 @@ import case_study.furama_resort.model.employee.Employee;
 import case_study.furama_resort.model.facility.Facility;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -13,8 +12,8 @@ public class Contract {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private java.sql.Date startDate;
-    private java.sql.Date endDate;
+    private String startDate;
+    private String endDate;
     private double deposit;
     @Column(columnDefinition = "int default 1")
     private int status = 1;
@@ -37,7 +36,7 @@ public class Contract {
     public Contract() {
     }
 
-    public Contract(int id, java.sql.Date startDate, java.sql.Date endDate, double deposit, int status, Set<ContractDetail> contractDetails, Employee employee, Customer customer, Facility facility) {
+    public Contract(int id, String startDate, String endDate, double deposit, int status, Set<ContractDetail> contractDetails, Employee employee, Customer customer, Facility facility) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -57,19 +56,19 @@ public class Contract {
         this.id = id;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(java.sql.Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(java.sql.Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

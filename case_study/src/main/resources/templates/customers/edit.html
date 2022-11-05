@@ -24,12 +24,12 @@
                 </div>
             </div>
 
-            <h1 style="text-align: center; color: blue">Thêm mới Khách Hàng</h1>
+            <h1 style="text-align: center; color: blue">Chỉnh sửa Khách Hàng</h1>
 
-            <form action="/customers/create" th:object="${customerDto}"
+            <form action="/customers/edit" th:object="${customerDto}"
                   method="post" novalidate="novalidate">
                 <fieldset style="width: 50%; margin-left: 25%">
-                    <legend>Nhập thông tin</legend>
+                    <legend>Sửa thông tin</legend>
                     <table class="table table-striped" style="text-align: left">
                         <input type="hidden" th:field="*{id}"/>
                         <tr>
@@ -72,10 +72,8 @@
                             </select></td>
                         </tr>
                         <tr>
-                            <td><a href="/customer/create" class="btn btn-primary" role="button">Xóa tất cả
-                                dữ
-                                liệu</a></td>
-                            <td><button type="submit" class="btn btn-primary">Thêm mới</button></td>
+                            <td><a th:href="@{/customers/{id}/edit(id=${customerDto.id})}" class="btn btn-primary" role="button">Hoàn tác</a></td>
+                            <td><button type="submit" class="btn btn-primary">Chỉnh sửa</button></td>
                         </tr>
                     </table>
                 </fieldset>

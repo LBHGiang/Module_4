@@ -89,54 +89,6 @@
     </div>
 </div>
 
-
-<!--<h3>Blogs</h3>-->
-<!--<p>-->
-<!--    <a href="/blog/create">-->
-<!--        Add new blog-->
-<!--    </a>-->
-<!--</p>-->
-<!--<div id="form">-->
-<!--    <form action="/blog/search" novalidate="novalidate">-->
-<!--        <input type="text" name="searchTitle" placeholder="Search by name">-->
-<!--        <button type="submit">Search</button>-->
-<!--    </form>-->
-<!--</div>-->
-<!--<div class="notify">-->
-<!--    <div th:if="${message}">-->
-<!--        <span th:text="${message}"></span>-->
-<!--    </div>-->
-<!--</div>-->
-<!--<table id="blogs">-->
-<!--    <thead>-->
-<!--    <tr>-->
-<!--        <th>Title</th>-->
-<!--        <th>Category</th>-->
-<!--        <th>Author</th>-->
-<!--        <th>Time</th>-->
-<!--        <th>Edit</th>-->
-<!--        <th>Delete</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    <tr th:each="blog,status:${blogs}">-->
-<!--        <td><a th:href="@{/blog/{id}/view(id=${blog.id})}"-->
-<!--               th:text="${blog.title}"></a></td>-->
-<!--        <td th:text="${blog.category.name}"></td>-->
-<!--        <td th:text="${blog.author}"></td>-->
-<!--        <td th:text="${blog.time}"></td>-->
-<!--        <td><a th:href="@{/blog/{id}/edit(id=${blog.id})}">Edit</a></td>-->
-<!--        <td><a th:href="@{/blog/{id}/delete(id=${blog.id})}">Delete</a></td>-->
-<!--    </tr>-->
-<!--    </tbody>-->
-<!--</table>-->
-<!--<div>-->
-<!--    <a th:href="@{'/blog'(page=${blogs.number - 1})}"-->
-<!--       th:if="${blogs.hasPrevious()}">Previous</a>-->
-<!--    <span th:text="${blogs.number+1}+'/'+${blogs.totalPages}"></span>-->
-<!--    <a th:href="@{'/blog'(page=${blogs.number + 1})}"-->
-<!--       th:if="${blogs.hasNext()}">Next</a>-->
-<!--</div>-->
 <footer th:replace="/bootstrap_layout :: footer"></footer>
 </body>
 </html>

@@ -125,6 +125,16 @@ VALUES(1,5,2,4, 1),
 (7,2,1,2, 1),
 (8,2,12,2, 1);
 
+INSERT INTO `module_4_cs_furama_resort`.`user` (`username`, `status`, `password`) VALUES ('An1', 1, '123');
+INSERT INTO `module_4_cs_furama_resort`.`user` (`username`, `status`, `password`) VALUES ('Binh1', 1, '123');
+INSERT INTO `module_4_cs_furama_resort`.`user` (`username`, `status`, `password`) VALUES ('Yen1', 1, '123');
+INSERT INTO `module_4_cs_furama_resort`.`user` (`username`, `status`, `password`) VALUES ('Toan1', 1, '123');
+INSERT INTO `module_4_cs_furama_resort`.`user` (`username`, `status`, `password`) VALUES ('Phat1', 1, '123');
+INSERT INTO `module_4_cs_furama_resort`.`user` (`username`, `status`, `password`) VALUES ('Nghi1', 1, '123');
+INSERT INTO `module_4_cs_furama_resort`.`user` (`username`, `status`, `password`) VALUES ('Ha1', 1, '123');
+INSERT INTO `module_4_cs_furama_resort`.`user` (`username`, `status`, `password`) VALUES ('Dong1', 1, '123');
+INSERT INTO `module_4_cs_furama_resort`.`user` (`username`, `status`, `password`) VALUES ('Hoang1', 1, '123');
+INSERT INTO `module_4_cs_furama_resort`.`user` (`username`, `status`, `password`) VALUES ('Dao1', 1, '123');
 
 
 UPDATE `module_4_cs_furama_resort`.`employee` SET `user_name` = 'An1' WHERE (`id` = '1');
@@ -138,16 +148,16 @@ UPDATE `module_4_cs_furama_resort`.`employee` SET `user_name` = 'Dong1' WHERE (`
 UPDATE `module_4_cs_furama_resort`.`employee` SET `user_name` = 'Hoang1' WHERE (`id` = '9');
 UPDATE `module_4_cs_furama_resort`.`employee` SET `user_name` = 'Dao1' WHERE (`id` = '10');
 
-INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('An1', '2');
-INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Binh1', '2');
-INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Dao1', '2');
-INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Dong1', '2');
-INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Ha1', '2');
-INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Hoang1', '2');
-INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Nghi1', '2');
-INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Phat1', '2');
-INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Toan1', '2');
-INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Yen1', '2');
 INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('An1', '1');
 INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Binh1', '1');
+INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Dao1', '1');
+INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Dong1', '1');
 INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Ha1', '1');
+INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Hoang1', '1');
+INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Nghi1', '1');
+INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Phat1', '1');
+INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Toan1', '1');
+INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Yen1', '1');
+INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('An1', '2');
+INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Binh1', '2');
+INSERT INTO `module_4_cs_furama_resort`.`user_role` (`username`, `role_id`) VALUES ('Ha1', '2');

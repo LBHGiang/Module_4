@@ -1,5 +1,7 @@
 package case_study.furama_resort.model.customer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -12,6 +14,7 @@ public class CustomerType {
     @Column(columnDefinition = "int default 1")
     private int status = 1;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "customerType")
     private Set<Customer> customers;
 

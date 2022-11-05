@@ -7,7 +7,7 @@ import java.util.Set;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int roleId;
+    private int roleId = 1;
     private String roleName;
     @Column(columnDefinition = "int default 1")
     private int status = 1;

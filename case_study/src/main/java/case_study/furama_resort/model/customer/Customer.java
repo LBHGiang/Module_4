@@ -1,9 +1,9 @@
 package case_study.furama_resort.model.customer;
 
 import case_study.furama_resort.model.contract.Contract;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -12,7 +12,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private java.sql.Date dateOfBirth;
+    private String dateOfBirth;
     private int gender;
     private String idCard;
     private String phoneNumber;
@@ -26,13 +26,14 @@ public class Customer {
     @JoinColumn(name = "customer_type_id", referencedColumnName = "id")
     private CustomerType customerType;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private Set<Contract> contracts;
 
     public Customer() {
     }
 
-    public Customer(int id, String name, java.sql.Date dateOfBirth, int gender, String idCard, String phoneNumber, String email, String address, int status, CustomerType customerType, Set<Contract> contracts) {
+    public Customer(int id, String name, String dateOfBirth, int gender, String idCard, String phoneNumber, String email, String address, int status, CustomerType customerType, Set<Contract> contracts) {
         this.id = id;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -62,11 +63,11 @@ public class Customer {
         this.name = name;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(java.sql.Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
