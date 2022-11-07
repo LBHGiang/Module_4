@@ -1,7 +1,7 @@
-package case_study.furama_resort.service.customer_service;
+package case_study.furama_resort.service.customer;
 
 import case_study.furama_resort.model.customer.CustomerType;
-import case_study.furama_resort.repository.ICustomerTypeRepository;
+import case_study.furama_resort.repository.customer.ICustomerTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,7 @@
-package case_study.furama_resort.model.facility;
+package case_study.furama_resort.model.facilities;
 
 import case_study.furama_resort.model.contract.Contract;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -30,6 +31,7 @@ public class Facility {
     @JoinColumn(name = "facility_type_id", referencedColumnName = "id")
     private FacilityType facilityType;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "facility")
     private Set<Contract> contracts;
 

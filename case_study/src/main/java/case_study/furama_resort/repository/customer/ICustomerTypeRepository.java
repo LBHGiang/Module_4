@@ -1,4 +1,4 @@
-package case_study.furama_resort.repository;
+package case_study.furama_resort.repository.customer;
 
 import case_study.furama_resort.model.customer.CustomerType;
 import org.springframework.data.jpa.repository.JpaRepository;

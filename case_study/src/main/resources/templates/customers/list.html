@@ -2,15 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/layout/customer_list :: head">
 </head>
-<style>
-    body {
-        background: url("../image/bg_img.jpg") no-repeat center/cover;
-        height: 100vh;
-        width: 100vw;
-    }
-</style>
 <body>
-<div th:replace="/layout/customer_list :: header">
+<div th:replace="/layout/layout :: header">
 </div>
 <div th:replace="/layout/customer_list :: navbar">
 </div>
@@ -76,9 +69,9 @@
             </tbody>
         </table>
 
-<!--        Phân trang-->
-        <div class="row" style="width: 100%; padding: 0; margin: 0;">
-            <div id="wrapper" class="col-6">
+        <!--        Phân trang-->
+        <div class="d-flex justify-content-between">
+            <div>
                 <ul id="border-pagination">
                     <li>
                         <a th:href="@{'/customers'(page=0, searchName=${searchName}, searchEmail=${searchEmail}, searchCustomerType=${searchCustomerType})}"
@@ -96,7 +89,7 @@
                            title="last page">Last</a></li>
                 </ul>
             </div>
-            <div class="col-6">
+            <div>
                 <a href="/customers/create" class="btn btn-primary" role="button">Thêm mới Khách hàng</a>
             </div>
         </div>
@@ -178,8 +171,9 @@
                                 <td></td>
                                 <td>
                                     <div class="modal-footer">
-                                        <button  class="btn btn-secondary" data-bs-dismiss="modal">Quay
-                                            lại</button>
+                                        <button class="btn btn-secondary" data-bs-dismiss="modal">Quay
+                                            lại
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -191,7 +185,7 @@
     </div>
 
 </div>
-<footer th:replace="/layout/customer_list :: footer"></footer>
+<footer th:replace="/layout/layout :: footer"></footer>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
 

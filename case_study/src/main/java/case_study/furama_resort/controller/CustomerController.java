@@ -3,8 +3,8 @@ package case_study.furama_resort.controller;
 import case_study.furama_resort.model.customer.Customer;
 import case_study.furama_resort.model.customer.CustomerType;
 import case_study.furama_resort.model.dto.CustomerDto;
-import case_study.furama_resort.service.customer_service.ICustomerService;
-import case_study.furama_resort.service.customer_service.ICustomerTypeService;
+import case_study.furama_resort.service.customer.ICustomerService;
+import case_study.furama_resort.service.customer.ICustomerTypeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -104,10 +104,9 @@ public class CustomerController {
         Optional<Customer> optionalCustomer = customerService.findById(id);
         if (!optionalCustomer.isPresent()) {
             redirect.addFlashAttribute("message", "Customer not found!");
-            return "redirect:/customers/";
+            return "redirect:/customers";
         }
         CustomerDto customerDto = new CustomerDto();
-        Customer customer = optionalCustomer.get();
         BeanUtils.copyProperties(optionalCustomer.get(), customerDto);
         model.addAttribute("customerDto", customerDto);
         return "customers/edit";
@@ -120,17 +119,17 @@ public class CustomerController {
         Optional<Customer> optionalCustomer = customerService.findById(customerDto.getId());
         if (!optionalCustomer.isPresent()) {
             redirect.addFlashAttribute("message", "Customer not found!");
-            return "redirect:/customers/";
+            return "redirect:/customers";
         }
         if (!bindingResult.hasErrors()) {
             Customer customer = new Customer();
             BeanUtils.copyProperties(customerDto, customer);
             customerService.save(customer);
             redirect.addFlashAttribute("message", "Customer updated successfully");
-            return "redirect:/customers/";
+            return "redirect:/customers";
         }
         redirect.addFlashAttribute("message", "Customer update failed");
-        return "redirect:/customers";
+        return "/customers/edit";
     }
 
     //    @GetMapping("/{id}/delete")
@@ -145,7 +144,7 @@ public class CustomerController {
 //    }
 
     @ModelAttribute("customerTypes")
-    public List<CustomerType> getAllCategories() {
+    public List<CustomerType> getCustomerTypes() {
         return customerTypeService.getCustomerTypes();
     }
 }

@@ -1,42 +1,28 @@
-package case_study.furama_resort.model.contract;
+package case_study.furama_resort.model.dto;
 
+import case_study.furama_resort.model.contract.ContractDetail;
 import case_study.furama_resort.model.customer.Customer;
 import case_study.furama_resort.model.employee.Employee;
 import case_study.furama_resort.model.facilities.Facility;
 
-import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-public class Contract {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ContractDto {
+
     private int id;
     private String startDate;
     private String endDate;
     private double deposit;
-    @Column(columnDefinition = "int default 1")
     private int status = 1;
-
-    @OneToMany(mappedBy = "contract")
     private Set<ContractDetail> contractDetails;
-
-    @ManyToOne
-    @JoinColumn(name = "employee_id", referencedColumnName = "id")
     private Employee employee;
-
-    @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
-
-    @ManyToOne
-    @JoinColumn(name = "facility_id", referencedColumnName = "id")
     private Facility facility;
 
-    public Contract() {
+    public ContractDto() {
     }
 
-    public Contract(int id, String startDate, String endDate, double deposit, int status, Set<ContractDetail> contractDetails, Employee employee, Customer customer, Facility facility) {
+    public ContractDto(int id, String startDate, String endDate, double deposit, int status, Set<ContractDetail> contractDetails, Employee employee, Customer customer, Facility facility) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;

@@ -1,7 +1,6 @@
-package case_study.furama_resort.repository;
+package case_study.furama_resort.repository.customer;
 
 import case_study.furama_resort.model.customer.Customer;
-import case_study.furama_resort.model.customer.CustomerType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,8 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
-import java.sql.Date;
-import java.util.List;
 import java.util.Optional;
 
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
@@ -29,23 +26,21 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "update customer set status = 0 where id = :id;", nativeQuery = true)
+    @Query(value = "update customer set status = 0 where id = :id", nativeQuery = true)
     void remove(@Param("id") int id);
 
-    @Transactional
-    @Modifying
-    @Query(value = "INSERT INTO customer ( name, date_of_birth,gender,id_card, phone_number, email, address, customer_type_id, status)\n" +
-            "VALUE ( :name, :date_of_birth,:gender,:id_card, :phone_number, :email, :address, :customer_type_id, :status);\n;", nativeQuery = true)
-    void save(@Param("name") String name,
-              @Param("date_of_birth") Date dateOfBirth,
-              @Param("gender") int gender,
-              @Param("id_card") String idCard,
-              @Param("phone_number") String phoneNumber,
-              @Param("email") String email,
-              @Param("address") String address,
-              @Param("customer_type_id") int customerTypeId,
-              @Param("status") int status);
+//    @Transactional
+//    @Modifying
+//    @Query(value = "INSERT INTO customer ( name, date_of_birth,gender,id_card, phone_number, email, address, customer_type_id, status)\n" +
+//            "VALUE ( :name, :date_of_birth,:gender,:id_card, :phone_number, :email, :address, :customer_type_id, :status)", nativeQuery = true)
+//    void save(@Param("name") String name,
+//              @Param("date_of_birth") Date dateOfBirth,
+//              @Param("gender") int gender,
+//              @Param("id_card") String idCard,
+//              @Param("phone_number") String phoneNumber,
+//              @Param("email") String email,
+//              @Param("address") String address,
+//              @Param("customer_type_id") int customerTypeId,
+//              @Param("status") int status);
 
-    @Query(value = "select * from customer_type where status = 1", nativeQuery = true)
-    List<CustomerType> getCustomerType();
 }

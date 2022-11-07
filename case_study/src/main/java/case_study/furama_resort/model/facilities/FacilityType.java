@@ -1,4 +1,6 @@
-package case_study.furama_resort.model.facility;
+package case_study.furama_resort.model.facilities;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -12,6 +14,7 @@ public class FacilityType {
     @Column(columnDefinition = "int default 1")
     private int status = 1;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "facilityType")
     private Set<Facility> facilities;
 

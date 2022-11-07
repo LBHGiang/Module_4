@@ -1,11 +1,9 @@
-package case_study.furama_resort.service.customer_service;
+package case_study.furama_resort.service.customer;
 
 import case_study.furama_resort.model.customer.Customer;
-import case_study.furama_resort.model.customer.CustomerType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface ICustomerService {
@@ -20,6 +18,4 @@ public interface ICustomerService {
                                                      String email,
                                                      String typeName,
                                                      Pageable pageable);
-
-    List<CustomerType> getCustomerTypes();
 }
