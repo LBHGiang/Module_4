@@ -2,8 +2,6 @@ package case_study.furama_resort.model.dto;
 
 import case_study.furama_resort.model.customer.CustomerType;
 
-import java.sql.Date;
-
 public class CustomerDto {
     private int id;
     private String name;

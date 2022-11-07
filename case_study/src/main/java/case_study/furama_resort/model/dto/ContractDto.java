@@ -19,10 +19,12 @@ public class ContractDto {
     private Customer customer;
     private Facility facility;
 
+    private double total;
+
     public ContractDto() {
     }
 
-    public ContractDto(int id, String startDate, String endDate, double deposit, int status, Set<ContractDetail> contractDetails, Employee employee, Customer customer, Facility facility) {
+    public ContractDto(int id, String startDate, String endDate, double deposit, int status, Set<ContractDetail> contractDetails, Employee employee, Customer customer, Facility facility, double total) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -32,6 +34,7 @@ public class ContractDto {
         this.employee = employee;
         this.customer = customer;
         this.facility = facility;
+        this.total = total;
     }
 
     public int getId() {
@@ -104,5 +107,13 @@ public class ContractDto {
 
     public void setFacility(Facility facility) {
         this.facility = facility;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 }

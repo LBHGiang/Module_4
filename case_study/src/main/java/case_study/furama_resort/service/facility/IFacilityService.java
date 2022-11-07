@@ -4,6 +4,7 @@ import case_study.furama_resort.model.facilities.Facility;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IFacilityService {
@@ -17,5 +18,7 @@ public interface IFacilityService {
     Page<Facility> findByNameAndFacilityType(String name,
                                              String typeName,
                                              Pageable pageable);
+
+    List<Facility> findAll();
 
 }

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
@@ -28,6 +29,9 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     @Modifying
     @Query(value = "update customer set status = 0 where id = :id", nativeQuery = true)
     void remove(@Param("id") int id);
+
+    @Query(value = "select * from `customer` where status = 1", nativeQuery = true)
+    List<Customer> findAll();
 
 //    @Transactional
 //    @Modifying

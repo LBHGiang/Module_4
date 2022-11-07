@@ -1,5 +1,6 @@
 package case_study.furama_resort.repository.facility;
 
+import case_study.furama_resort.model.employee.Employee;
 import case_study.furama_resort.model.facilities.Facility;
 import case_study.furama_resort.model.facilities.FacilityType;
 import case_study.furama_resort.model.facilities.RentType;
@@ -11,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 public interface IFacilityRepository extends JpaRepository<Facility, Integer> {
@@ -50,9 +52,6 @@ public interface IFacilityRepository extends JpaRepository<Facility, Integer> {
               @Param("status") int status);
 
 
-
-
-
-
-
+    @Query(value = "select * from `facility` where status= 1", nativeQuery = true)
+    List<Facility> findAll();
 }
