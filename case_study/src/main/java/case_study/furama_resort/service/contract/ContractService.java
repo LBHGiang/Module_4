@@ -34,5 +34,4 @@ public class ContractService implements IContractService {
     public Page<Contract> findAll(Pageable pageable) {
         return contractRepository.findAll(pageable);
     }
-
 }

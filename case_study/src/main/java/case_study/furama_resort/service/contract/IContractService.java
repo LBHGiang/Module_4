@@ -15,4 +15,5 @@ public interface IContractService {
     void remove(int id);
 
     Page<Contract> findAll(Pageable pageable);
+
 }

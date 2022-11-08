@@ -13,11 +13,11 @@ import java.util.Optional;
 
 public interface IContractRepository extends JpaRepository<Contract, Integer> {
 
-//    @Query(value = "select * from `contract` where status= 1", nativeQuery = true)
-//    Page<Contract> findAll(Pageable pageable);
+    @Query(value = "select * from `contract` where status= 1", nativeQuery = true)
+    Page<Contract> findAll(Pageable pageable);
 
-//    @Query(value = "select * from `contract` where id=:id and status = 1", nativeQuery = true)
-//    Optional<Contract> findById(@Param("id") int id);
+    @Query(value = "select * from `contract` where id=:id and status = 1", nativeQuery = true)
+    Optional<Contract> findById(@Param("id") int id);
 
     @Transactional
     @Modifying
