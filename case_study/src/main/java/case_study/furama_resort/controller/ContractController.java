@@ -1,19 +1,33 @@
 package case_study.furama_resort.controller;
 
+import case_study.furama_resort.model.contract.AttachFacility;
 import case_study.furama_resort.model.contract.Contract;
-import case_study.furama_resort.model.dto.ContractDto;
+import case_study.furama_resort.model.contract.ContractDetail;
+import case_study.furama_resort.model.customer.Customer;
+import case_study.furama_resort.model.dto.contract.ContractDto;
+import case_study.furama_resort.model.employee.Employee;
+import case_study.furama_resort.model.facilities.Facility;
+import case_study.furama_resort.service.contract.IAttachFacilityService;
+import case_study.furama_resort.service.contract.IContractDetailService;
 import case_study.furama_resort.service.contract.IContractService;
+import case_study.furama_resort.service.contract.IEmployeeService;
+import case_study.furama_resort.service.customer.ICustomerService;
+import case_study.furama_resort.service.facility.IFacilityService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.function.Function;
 
 @CrossOrigin("*")
@@ -21,20 +35,24 @@ import java.util.function.Function;
 @RequestMapping("/contracts")
 public class ContractController {
 
-//    @Autowired
-//    private ICustomerService customerService;
+    @Autowired
+    private ICustomerService customerService;
 
     @Autowired
     private IContractService contractService;
 
-//    @Autowired
-//    private IContractDtoService contractDtoService;
+    @Autowired
+    private IEmployeeService employeeService;
 
-//    @Autowired
-//    private IEmployeeService employeeService;
-//
-//    @Autowired
-//    private IFacilityService facilityService;
+    @Autowired
+    private IFacilityService facilityService;
+
+    @Autowired
+    private IAttachFacilityService attachFacilityService;
+
+    @Autowired
+    private IContractDetailService contractDetailService;
+
 
     @GetMapping
     public String list(Model model,
@@ -49,15 +67,83 @@ public class ContractController {
                 contractDto.getTotalCost();
                 return contractDto;
             }
-
         });
-
         model.addAttribute("contracts", contractDtoPage);
+        model.addAttribute("contractDto", new ContractDto());
         return "contracts/list";
+    }
+
+    @GetMapping("/create")
+    public String showCreateForm(Model model) {
+        model.addAttribute("contractDto", new ContractDto());
+        return "contracts/create";
+    }
+
+    @PostMapping("/create")
+    public String create(@Validated @ModelAttribute(value = "contractDto") ContractDto contractDto,
+                         BindingResult bindingResult,
+                         @ModelAttribute(value = "attachFacilities") List<AttachFacility> attachFacilities,
+                         RedirectAttributes redirect) {
+        if (!bindingResult.hasErrors()) {
+            Contract contract = new Contract();
+            BeanUtils.copyProperties(contractDto, contract);
+            contractService.save(contract);
+
+            List<Contract> contractList = contractService.findAll();
+            for (int i = 0; i < contractDto.getQuantities().size(); i++) {
+                Integer quantity = contractDto.getQuantities().get(i);
+                if (quantity != null) {
+                    ContractDetail contractDetail = new ContractDetail();
+                    contractDetail.setQuantity(quantity);
+                    contractDetail.setAttachFacility(attachFacilities.get(i));
+                    contractDetail.setContract(contractList.get(contractList.size() - 1));
+                    contractDetailService.save(contractDetail);
+                }
+            }
+
+            redirect.addFlashAttribute("message", "Contract created successfully");
+        } else {
+            redirect.addFlashAttribute("message", "Contract creation failed");
+        }
+        return "redirect:/contracts/create";
+    }
+
+    @GetMapping("/{id}/attachFacilities")
+    public ResponseEntity<List<ContractDetail>> getContractDetails(@PathVariable int id) {
+        List<ContractDetail> contractDetails = contractDetailService.findByContractId(id);
+        if (contractDetails.isEmpty()) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(contractDetails, HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}/attachFacilities")
+    public String addAttachFacilities(@PathVariable int id,
+                                      @Validated @ModelAttribute(value = "contractDto") ContractDto contractDto,
+                                      BindingResult bindingResult,
+                                      @ModelAttribute(value = "attachFacilities") List<AttachFacility> attachFacilities,
+                                      RedirectAttributes redirect) {
+        if (!bindingResult.hasErrors()) {
+            for (int i = 0; i < contractDto.getQuantities().size(); i++) {
+                Integer quantity = contractDto.getQuantities().get(i);
+                if (quantity != null) {
+                    ContractDetail contractDetail = new ContractDetail();
+                    contractDetail.setQuantity(quantity);
+                    contractDetail.setAttachFacility(attachFacilities.get(i));
+                    contractDetail.setContract(contractService.findById(id).get());
+                    contractDetailService.save(contractDetail);
+                }
+            }
+            redirect.addFlashAttribute("message", "Attach Facility added successfully");
+        } else {
+            redirect.addFlashAttribute("message", "Attach Facility add failed");
+        }
+        return "redirect:/contracts";
 
     }
 
-//    @GetMapping("/{id}/delete")
+
+    //    @GetMapping("/{id}/delete")
 //    public ResponseEntity<Contract> remove(@PathVariable(value = "id") int id) {
 //        Optional<Contract> optionalContract = contractService.findById(id);
 //        if (!optionalContract.isPresent()) {
@@ -76,28 +162,6 @@ public class ContractController {
 //            redirect.addFlashAttribute("message", "Contract removed!");
 //        }
 //        return "redirect:/contracts";
-//    }
-
-//    @GetMapping("/create")
-//    public String create(Model model) {
-//        model.addAttribute("contractDto", new ContractDto());
-//        return "contracts/create";
-//    }
-
-//    @PostMapping("/create")
-//    public String create(@Validated @ModelAttribute(value = "contractDto") ContractDto contractDto,
-//                         BindingResult bindingResult,
-//                         RedirectAttributes redirect) {
-//        if (!bindingResult.hasErrors()) {
-//            Contract contract = new Contract();
-//            BeanUtils.copyProperties(contractDto, contract);
-//            contractService.save(contract);
-//            redirect.addFlashAttribute("message", "Contract created successfully");
-//        } else {
-//            redirect.addFlashAttribute("message", "Contract creation failed");
-//            System.out.println(bindingResult.toString());
-//        }
-//        return "redirect:/contracts/create";
 //    }
 
 //    @GetMapping("/{id}/edit")
@@ -143,5 +207,26 @@ public class ContractController {
 //        model.addAttribute("customer", optionalCustomer.get());
 //        return "customers/list";
 //    }
+
+    @ModelAttribute("customers")
+    public List<Customer> getCustomerList() {
+        return customerService.findAllCustomer();
+    }
+
+    @ModelAttribute("facilities")
+    public List<Facility> getFacilityList() {
+        return facilityService.findAll();
+    }
+
+    @ModelAttribute("employees")
+    public List<Employee> getEmployeeList() {
+        return employeeService.findAll();
+    }
+
+    @ModelAttribute("attachFacilities")
+    public List<AttachFacility> getAttachFacilityList() {
+        return attachFacilityService.findAll();
+    }
+
 
 }

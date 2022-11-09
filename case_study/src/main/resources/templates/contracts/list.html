@@ -17,7 +17,7 @@
         </div>
         <h1 style="text-align: center; color: blue">Danh sách Hợp Đồng</h1>
 
-        <table id="customer_table" class="table table-striped table-bordered" style="width: 100%">
+        <table class="table table-striped table-bordered" style="width: 100%">
             <thead>
             <tr>
                 <th>STT</th>
@@ -43,12 +43,14 @@
                 <td th:text="${contract.total}"></td>
 
                 <td>
-                    <a type="button" class="deleteConfirm btn btn-danger" data-bs-toggle="modal"
-                       th:href="@{/contracts/{id}/delete(id=${contract.id})}" data-bs-target="#...Modal">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            th:attr="onclick=|addAttachFacilityOfContract('${contract.id}')|"
+                            data-bs-target="#addAttachFacilityModal">
                         +
-                    </a>
-                    <a type="button" class="deleteConfirm btn btn-danger" data-bs-toggle="modal"
-                       th:href="@{/contracts/{id}/delete(id=${contract.id})}" data-bs-target="#...Modal">
+                    </button>
+                    <a type="button" class="attach-detail-modal btn btn-primary"
+                       data-bs-toggle="modal" th:href="@{/contracts/{id}/attachFacilities(id=${contract.id})}"
+                       data-bs-target="#attach-detail-modal">
                         Danh sách Dịch vụ đi kèm
                     </a>
                 </td>
@@ -119,64 +121,108 @@
         </div>
     </div>
 
-    <!-- View Modal -->
-    <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+
+    <!-- (+) Thêm dịch vụ đi kèm Modal -->
+    <div class="modal fade" id="addAttachFacilityModal" tabindex="-1" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel-view">Thông tin chi tiết</h5>
+                    <h5 class="modal-title" id="exampleModalLabel-create">Dịch vụ đi kèm</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <span id="viewEror">Không tìm thấy khách hàng</span>
-                    <fieldset>
-                        <table class="table table-striped table-bordered" style="width: 100%">
+                    <form id="add-attach-form" th:object="${contractDto}"
+                          method="post" novalidate="novalidate">
+                        <table id="attach_facility_table" class="table table-striped table-bordered">
+                            <thead>
                             <tr>
-                                <td>Tên</td>
-                                <td><p id="nameView"></p></td>
+                                <th>Tên</th>
+                                <th>Đơn Vị</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                                <th>Xóa</th>
                             </tr>
-                            <tr>
-                                <td>Ngày sinh</td>
-                                <td><p id="dateOfBirthView"></p></td>
-                            </tr>
-                            <tr>
-                                <td>Giới tính</td>
-                                <td><p id="genderView"></p></td>
-                            </tr>
-                            <tr>
-                                <td>CMND</td>
-                                <td><p id="idCardView"></p></td>
-                            </tr>
-                            <tr>
-                                <td>SĐT</td>
-                                <td><p id="phoneNumberView"></p></td>
-                            </tr>
-                            <tr>
-                                <td>Email</td>
-                                <td><p id="emailView"></p></td>
-                            </tr>
-                            <tr>
-                                <td>Địa chỉ</td>
-                                <td><p id="addressView"></p></td>
-                            </tr>
-                            <tr>
-                                <td>Loại khách</td>
-                                <td><p id="customerTypeView"></p></td>
-                            </tr>
-                            <tr>
-                                <td></td>
+                            </thead>
+                            <tbody>
+                            <input id="id-output" type="hidden" th:field="*{id}"/>
+                            <input id="quantity-output" type="hidden" th:field="*{quantities}">
+
+                            <tr th:each="attachFacilitie:${attachFacilities}">
+                                <!--                               attach facilityId-->
+                                <input id="size" type="hidden" th:value="${attachFacilities.size()}">
+                                <input th:attr="id=|input-id${attachFacilitie.id}|" type="hidden"
+                                       th:value="${attachFacilitie.id}">
+                                <!--                                Tên-->
+                                <td th:text="${attachFacilitie.name}"></td>
+                                <!--                                Đơn vị-->
+                                <td th:text="${attachFacilitie.unit}"></td>
+                                <!--                                Giá-->
+                                <td th:text="${attachFacilitie.cost}"
+                                    th:attr="id=|input-cost${attachFacilitie.id}|"></td>
+                                <!--                                Số lượng-->
+                                <td id="input-quantity"><input th:attr="id=|input-quantity${attachFacilitie.id}|"
+                                                               type="number">
+                                </td>
+                                <!--                                Thành tiền-->
+                                <td th:attr="id=|input-sub-cost${attachFacilitie.id}|"></td>
                                 <td>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-secondary" data-bs-dismiss="modal">Quay
-                                            lại
-                                        </button>
-                                    </div>
+                                    <button onclick="resetQuantity('${attachFacilitie.id}')" type="button"
+                                            class="btn btn-danger">
+                                        Xóa
+                                    </button>
                                 </td>
                             </tr>
+                            <tr>
+                                <td colspan="4">
+                                    Tổng Tiền:
+                                </td>
+                                <td id="total-cost"></td>
+                            </tr>
+                            </tbody>
                         </table>
-                    </fieldset>
+                        <div class="modal-footer">
+                            <button id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+                            <button id="confirm" class="btn btn-secondary" type="submit" data-bs-dismiss="modal">Xác nhận</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- attach detail Modal -->
+    <div class="modal fade" id="attach-detail-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel-view">Dịch vụ đi kèm</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5 id="viewEror">Không có dịch vụ đi kèm!</h5>
+                    <table class="table table-striped table-bordered" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th>Tên Dịch Vụ</th>
+                            <th>Giá</th>
+                            <th>Đơn Vị</th>
+                            <th>Số lượng</th>
+                        </tr>
+                        </thead>
+                        <tbody id="attach-modal-body">
+
+                        </tbody>
+                    </table>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Quay
+                            lại
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -187,56 +233,58 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
 
-    $(".deleteConfirm").click(function () {
-        let href = $(this).attr('href');
-        $.ajax({
-            url: "http://localhost:8080" + href,
-            type: "GET",
-            dataType: "json",
-            success: function (customer) {
-                if (customer == null) {
-                    $("#deleteName").text("Thất bại");
-                    $("#deleteCancel").text("Kiểm tra lại");
-                    $("#deleteForm").hide();
-                } else {
-                    $("#deleteEror").hide();
-                    $("#deleteCancel").text("Huỷ bỏ");
-                    $("#nameDelete").text(customer.name);
-                    $("#idDelete").val(customer.id);
-                }
-            }
-        })
+    function addAttachFacilityOfContract(id){
+        console.log("1");
+        $("#add-attach-form").attr("action", "/contracts/"+ id + "/attachFacilities");
+        $("#id-output").val(id);
+    }
+
+    $("#input-quantity>input").on('input', function () {
+        getCost();
     })
 
-    $(".view").click(function () {
+    function getCost() {
+        let size = $("#size").val();
+        let quantities = [];
+        let subCost = 0;
+        let total = 0;
+        for (let i = 1; i <= size; i++) {
+            let quantity = $("#input-quantity" + i).val();
+            quantities.push(quantity);
+            let cost = $("#input-cost" + i).text();
+            subCost = quantity * cost;
+            $("#input-sub-cost" + i).text(subCost);
+
+            total += subCost;
+        }
+        $("#total-cost").text(total);
+        $("#quantity-output").val(quantities);
+    }
+
+    function resetQuantity(id) {
+        $("#input-quantity" + i).val(0);
+    }
+
+    $(".attach-detail-modal").click(function () {
+        $("#attach-modal-body").empty();
         let href = $(this).attr('href');
         $.ajax({
             url: "http://localhost:8080" + href,
             type: "GET",
             dataType: "json",
-            success: function (customer) {
-                if (customer != null) {
+            success: function (contractDetails) {
+                if (contractDetails != null) {
                     $("#viewEror").hide();
-                    $("#nameView").text(customer.name);
-                    $("#dateOfBirthView").text(customer.dateOfBirth);
-
-                    switch (customer.gender) {
-                        case 0 :
-                            $("#genderView").text("Nam");
-                            break;
-                        case 1 :
-                            $("#genderView").text("Nữ");
-                            break;
-                        default:
-                            $("#genderView").text("Khác");
-                            break;
+                    let tr = [];
+                    for (let i = 0; i < contractDetails.length; i++) {
+                        tr.push("<tr>")
+                        tr.push("<td>" + contractDetails[i].attachFacility.name + "</td>");
+                        tr.push("<td>" + contractDetails[i].attachFacility.cost + "</td>");
+                        tr.push("<td>" + contractDetails[i].attachFacility.unit + "</td>");
+                        tr.push("<td>" + contractDetails[i].quantity + "</td>");
+                        tr.push("</tr>");
                     }
-
-                    $("#idCardView").text(customer.idCard);
-                    $("#phoneNumberView").text(customer.phoneNumber);
-                    $("#emailView").text(customer.email);
-                    $("#addressView").text(customer.address);
-                    $("#customerTypeView").text(customer.customerType.name);
+                    $("#attach-modal-body").append(tr.join(""));
                 }
             }
         })

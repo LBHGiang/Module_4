@@ -1,10 +1,11 @@
-package case_study.furama_resort.model.dto;
+package case_study.furama_resort.model.dto.contract;
 
 import case_study.furama_resort.model.contract.ContractDetail;
 import case_study.furama_resort.model.customer.Customer;
 import case_study.furama_resort.model.employee.Employee;
 import case_study.furama_resort.model.facilities.Facility;
 
+import java.util.LinkedList;
 import java.util.Set;
 
 public class ContractDto {
@@ -18,6 +19,8 @@ public class ContractDto {
     private Employee employee;
     private Customer customer;
     private Facility facility;
+    private LinkedList<Integer> quantities;
+
 
     public ContractDto() {
     }
@@ -115,13 +118,21 @@ public class ContractDto {
         this.total = total;
     }
 
+    public LinkedList<Integer> getQuantities() {
+        return quantities;
+    }
+
+    public void setQuantities(LinkedList<Integer> quantities) {
+        this.quantities = quantities;
+    }
+
     private double total;
 
     public void getTotalCost() {
-        this.total = this.facility.getCost();
+        this.total = this.facility == null ? 0 : this.facility.getCost();
         if (this.contractDetails != null) {
             for (ContractDetail contractDetail : this.contractDetails) {
-                this.total += contractDetail.getQuantity() * contractDetail.getAttachFacility().getCost();
+                this.total += contractDetail == null ? 0 : contractDetail.getQuantity() * contractDetail.getAttachFacility().getCost();
             }
         }
     }

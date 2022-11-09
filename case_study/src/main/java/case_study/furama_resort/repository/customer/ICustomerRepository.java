@@ -30,8 +30,8 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     @Query(value = "update customer set status = 0 where id = :id", nativeQuery = true)
     void remove(@Param("id") int id);
 
-    @Query(value = "select * from `customer` where status = 1", nativeQuery = true)
-    List<Customer> findAll();
+    @Query(value = "select * from `customer` where status= 1", nativeQuery = true)
+    List<Customer> findAllCustomer();
 
 //    @Transactional
 //    @Modifying

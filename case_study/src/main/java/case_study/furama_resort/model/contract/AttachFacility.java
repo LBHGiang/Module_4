@@ -1,5 +1,7 @@
 package case_study.furama_resort.model.contract;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -16,6 +18,7 @@ public class AttachFacility {
     @Column(columnDefinition = "int default 1")
     private int status = 1;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "attachFacility")
     private Set<ContractDetail> contractDetails;
 

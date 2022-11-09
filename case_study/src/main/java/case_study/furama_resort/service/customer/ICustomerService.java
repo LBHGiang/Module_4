@@ -20,5 +20,5 @@ public interface ICustomerService {
                                                      String typeName,
                                                      Pageable pageable);
 
-    List<Customer> findAll();
+    List<Customer> findAllCustomer();
 }

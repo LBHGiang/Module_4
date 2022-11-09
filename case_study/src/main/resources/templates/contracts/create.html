@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout/layout :: head">
+</head>
+<body>
+<div th:replace="/layout/layout :: header">
+</div>
+<div th:replace="/layout/contract_create_edit :: navbar">
+</div>
+
+<div class="container-fluid">
+    <div class="row" style="width: 100%; padding: 0; margin: 0;">
+        <div id="content">
+            <div class="notify">
+                <div th:if="${message}">
+                    <h2 style="color: #4caf50" th:text="${message}"></h2>
+                </div>
+            </div>
+
+            <h1 style="text-align: center; color: blue">Thêm mới Hợp Đồng</h1>
+
+            <form action="/contracts/create" th:object="${contractDto}"
+                  method="post" novalidate="novalidate">
+                <fieldset style="width: 50%; margin-left: 25%">
+                    <legend>Nhập thông tin</legend>
+                    <table class="table table-striped" style="text-align: left">
+                        <input type="hidden" th:field="*{id}"/>
+                        <tr>
+                            <td>Dịch Vụ</td>
+                            <td><select th:field="*{facility}">
+                                <option value="">--Chọn Dịch Vụ--</option>
+                                <option th:each="facility: ${facilities}"
+                                        th:value="${facility.id}" th:text="${facility.name}"></option>
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <td>Khách Hàng</td>
+                            <td><select th:field="*{customer}">
+                                <option value="">--Chọn Khách Hàng--</option>
+                                <option th:each="customer: ${customers}"
+                                        th:value="${customer.id}" th:text="${customer.name}"></option>
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <td>Nhân Viên</td>
+                            <td><select th:field="*{employee}">
+                                <option value="">--Chọn Nhân Viên--</option>
+                                <option th:each="employee: ${employees}"
+                                        th:value="${employee.id}" th:text="${employee.name}"></option>
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <td>Ngày bắt đầu</td>
+                            <td><input type="text" th:field="*{startDate}"></td>
+                        </tr>
+                        <tr>
+                            <td>Ngày kết thúc</td>
+                            <td><input type="text" th:field="*{endDate}"></td>
+                        </tr>
+                        <tr>
+                            <td>Đặt trước</td>
+                            <td><input type="text" th:field="*{deposit}"></td>
+                        </tr>
+                        <input id="quantityOutput" type="hidden" th:field="*{quantities}">
+                        <tr>
+                            <td>Dịch vụ đi kèm</td>
+                            <td>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#addAttachFacilityModal">
+                                    +
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <table id="details-form" class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Tên</th>
+                                        <th>Đơn Vị</th>
+                                        <th>Giá</th>
+                                        <th>Số lượng</th>
+                                        <th>Thành tiền</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="attachFacilitie:${attachFacilities}">
+
+                                        <input id="size" type="hidden" th:value="${attachFacilities.size()}">
+                                        <!--                                Tên-->
+                                        <td th:attr="class=|output-id${attachFacilitie.id}|"
+                                            th:text="${attachFacilitie.name}"></td>
+                                        <!--                                Đơn vị-->
+                                        <td th:attr="class=|output-id${attachFacilitie.id}|"
+                                            th:text="${attachFacilitie.unit}"></td>
+                                        <!--                                Giá-->
+                                        <td th:attr="class=|output-id${attachFacilitie.id}|"
+                                            th:text="${attachFacilitie.cost}"></td>
+                                        <!--                                Số lượng-->
+                                        <td th:attr="id=|show-quantity${attachFacilitie.id}|"></td>
+                                        <!--                                Thành tiền-->
+                                        <td th:attr="id=|show-sub-cost${attachFacilitie.id}|"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">Tổng tiền dịch vụ đi kèm
+                                        </td>
+                                        <td id="show-total-cost"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a href="/contracts/create" class="btn btn-primary" role="button">Xóa tất cả
+                                dữ
+                                liệu</a></td>
+                            <td>
+                                <button type="submit" class="btn btn-primary">Thêm mới</button>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Thêm dịch vụ đi kèm Modal -->
+<div class="modal fade" id="addAttachFacilityModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel-create">Dịch vụ đi kèm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table id="attach_facility_table" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Tên</th>
+                        <th>Đơn Vị</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
+                        <th>Xóa</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="attachFacilitie:${attachFacilities}">
+                        <!--                               attach facilityId-->
+                        <input th:attr="id=|input-id${attachFacilitie.id}|" type="hidden"
+                               th:value="${attachFacilitie.id}">
+                        <!--                                Tên-->
+                        <td th:text="${attachFacilitie.name}"></td>
+                        <!--                                Đơn vị-->
+                        <td th:text="${attachFacilitie.unit}"></td>
+                        <!--                                Giá-->
+                        <td th:text="${attachFacilitie.cost}"
+                            th:attr="id=|input-cost${attachFacilitie.id}|"></td>
+                        <!--                                Số lượng-->
+                        <td id="inputQuantity"><input th:attr="id=|input-quantity${attachFacilitie.id}|" type="number">
+                        </td>
+                        <!--                                Thành tiền-->
+                        <td th:attr="id=|input-sub-cost${attachFacilitie.id}|"></td>
+                        <td>
+                            <button onclick="resetQuantity('${attachFacilitie.id}')" type="button"
+                                    class="btn btn-danger">
+                                Xóa
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            Tổng Tiền:
+                        </td>
+                        <td id="total-cost"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="modal-footer">
+                    <button id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+                    <button id="confirm" class="btn btn-secondary" data-bs-dismiss="modal">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        showAttachFacility();
+    })
+
+    $("#confirm").click(function () {
+        showAttachFacility();
+    })
+
+    function showAttachFacility() {
+        $("#details-form").hide();
+
+        let size = $("#size").val();
+        let quantities = [];
+        for (let i = 1; i <= size; i++) {
+            //in số lượng
+            let quantity = $("#input-quantity" + i).val();
+            $("#show-quantity" + i).text(quantity);
+
+            //lấy số lượng về server
+            quantities.push(quantity);
+
+            //in giá thành phần
+            let subCost = $("#input-sub-cost" + i).text();
+            $("#show-sub-cost" + i).text(subCost);
+
+            //in giá Tổng
+            let totalCost = $("#total-cost").text();
+            $("#show-total-cost").text(totalCost);
+
+
+            if (quantity > 0) {
+                $("#details-form").show();
+                $(".output-id" + i).show();
+                $("#show-quantity" + i).show();
+                $("#show-sub-cost" + i).show();
+            } else {
+                $(".output-id" + i).hide();
+                $("#show-quantity" + i).hide();
+                $("#show-sub-cost" + i).hide();
+            }
+        }
+
+        //truyền dữ liệu về server khi submid form
+        $("#quantityOutput").val(quantities);
+    }
+
+    $("#inputQuantity>input").on('input', function () {
+        getCost();
+    })
+
+    function getCost() {
+        let size = $("#size").val();
+        let subCost = 0;
+        let total = 0;
+        for (let i = 1; i <= size; i++) {
+            let quantity = $("#input-quantity" + i).val();
+            let cost = $("#input-cost" + i).text();
+            subCost = quantity * cost;
+            $("#input-sub-cost" + i).text(subCost);
+
+            total += subCost;
+        }
+        $("#total-cost").text(total);
+    }
+
+    function resetQuantity(id) {
+        alert(id);
+        $("#input-quantity" + i).val(0);
+    }
+
+
+</script>
+
+<footer th:replace="/layout/layout :: footer"></footer>
+</body>
+</html>

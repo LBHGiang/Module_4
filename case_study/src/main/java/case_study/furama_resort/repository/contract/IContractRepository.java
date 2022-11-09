@@ -9,12 +9,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 public interface IContractRepository extends JpaRepository<Contract, Integer> {
 
     @Query(value = "select * from `contract` where status= 1", nativeQuery = true)
     Page<Contract> findAll(Pageable pageable);
+
+    @Query(value = "select * from `contract` where status= 1", nativeQuery = true)
+    List<Contract> findAll();
 
     @Query(value = "select * from `contract` where id=:id and status = 1", nativeQuery = true)
     Optional<Contract> findById(@Param("id") int id);
