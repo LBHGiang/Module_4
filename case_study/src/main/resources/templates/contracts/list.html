@@ -125,7 +125,7 @@
     <!-- (+) Thêm dịch vụ đi kèm Modal -->
     <div class="modal fade" id="addAttachFacilityModal" tabindex="-1" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel-create">Dịch vụ đi kèm</h5>
@@ -234,7 +234,6 @@
 <script>
 
     function addAttachFacilityOfContract(id){
-        console.log("1");
         $("#add-attach-form").attr("action", "/contracts/"+ id + "/attachFacilities");
         $("#id-output").val(id);
     }
@@ -278,10 +277,10 @@
                     let tr = [];
                     for (let i = 0; i < contractDetails.length; i++) {
                         tr.push("<tr>")
-                        tr.push("<td>" + contractDetails[i].attachFacility.name + "</td>");
-                        tr.push("<td>" + contractDetails[i].attachFacility.cost + "</td>");
-                        tr.push("<td>" + contractDetails[i].attachFacility.unit + "</td>");
-                        tr.push("<td>" + contractDetails[i].quantity + "</td>");
+                        tr.push("<td>" + contractDetails[i].getName() + "</td>");
+                        tr.push("<td>" + contractDetails[i].getSubcost() + "</td>");
+                        tr.push("<td>" + contractDetails[i].getUnit() + "</td>");
+                        tr.push("<td>" + contractDetails[i].getQuantity() + "</td>");
                         tr.push("</tr>");
                     }
                     $("#attach-modal-body").append(tr.join(""));

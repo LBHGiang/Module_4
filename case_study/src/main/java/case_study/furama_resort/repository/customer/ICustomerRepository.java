@@ -33,6 +33,17 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     @Query(value = "select * from `customer` where status= 1", nativeQuery = true)
     List<Customer> findAllCustomer();
 
+
+    @Query(value = "select cu.* from `customer`cu " +
+            "inner join `contract` co on cu.id = co.customer_id " +
+            "inner join `customer_type` ct on cu.customer_type_id = ct.id " +
+            "where cu.name like %:name% and cu.email like %:email% and ct.name like %:typeName% and cu.status= 1 and co.end_date > now() " +
+            "group by cu.id ", nativeQuery = true)
+    Page<Customer> findCustomerUsingService(@Param("name") String name,
+                                            @Param("email") String email,
+                                            @Param("typeName") String typeName,
+                                            Pageable pageable);
+
 //    @Transactional
 //    @Modifying
 //    @Query(value = "INSERT INTO customer ( name, date_of_birth,gender,id_card, phone_number, email, address, customer_type_id, status)\n" +

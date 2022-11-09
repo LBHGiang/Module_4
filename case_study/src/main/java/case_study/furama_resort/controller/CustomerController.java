@@ -132,16 +132,19 @@ public class CustomerController {
         return "/customers/edit";
     }
 
-    //    @GetMapping("/{id}/delete")
-//    public String remove(@PathVariable(value = "id") int id, Model model, RedirectAttributes redirect) {
-//        Optional<Customer> optionalCustomer = customerService.findById(id);
-//        if (!optionalCustomer.isPresent()) {
-//            redirect.addFlashAttribute("message", "Customer not found!");
-//            return "redirect:/customers";
-//        }
-//        model.addAttribute("customer", optionalCustomer.get());
-//        return "customers/list";
-//    }
+    @GetMapping("/using")
+    public String searchCustomerUsingService(@RequestParam(value = "searchName", defaultValue = "") String name,
+                         @RequestParam(value = "searchEmail", defaultValue = "") String email,
+                         @RequestParam(value = "searchCustomerType", defaultValue = "") String typeName,
+                         Model model,
+                         @PageableDefault(value = 3) Pageable pageable) {
+        Page<Customer> customers = customerService.findCustomerUsingService(name, email, typeName, pageable);
+        model.addAttribute("customers", customers);
+        model.addAttribute("searchName", name);
+        model.addAttribute("searchEmail", email);
+        model.addAttribute("searchCustomerType", typeName);
+        return "customers/customers_use_service";
+    }
 
     @ModelAttribute("customerTypes")
     public List<CustomerType> getCustomerTypes() {

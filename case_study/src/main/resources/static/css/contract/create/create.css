@@ -1,0 +1,10 @@
+td select, td input {
+    width: 60%;
+}
+td select{
+    text-align: center;
+}
+td input[type="radio"] {
+    width: auto;
+    margin-left: 12px;
+}

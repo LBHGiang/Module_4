@@ -21,4 +21,9 @@ public interface ICustomerService {
                                                      Pageable pageable);
 
     List<Customer> findAllCustomer();
+
+    Page<Customer> findCustomerUsingService(String name,
+                                            String email,
+                                            String typeName,
+                                            Pageable pageable);
 }

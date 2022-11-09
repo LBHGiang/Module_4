@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/layout/layout :: head">
+
 </head>
 <body>
 <div th:replace="/layout/layout :: header">
@@ -27,11 +28,15 @@
                         <input type="hidden" th:field="*{id}"/>
                         <tr>
                             <td>Dịch Vụ</td>
-                            <td><select th:field="*{facility}">
-                                <option value="">--Chọn Dịch Vụ--</option>
-                                <option th:each="facility: ${facilities}"
-                                        th:value="${facility.id}" th:text="${facility.name}"></option>
-                            </select></td>
+                            <td>
+                                <select th:field="*{facility}">
+                                    <option value="">--Chọn Dịch Vụ--</option>
+                                    <option th:each="facility: ${facilities}"
+                                            th:value="${facility.id}" th:text="${facility.name}">
+
+                                    </option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td>Khách Hàng</td>

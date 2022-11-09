@@ -3,6 +3,7 @@ package case_study.furama_resort.controller;
 import case_study.furama_resort.model.contract.AttachFacility;
 import case_study.furama_resort.model.contract.Contract;
 import case_study.furama_resort.model.contract.ContractDetail;
+import case_study.furama_resort.model.contract.ContractDetailAttachFacilityDto;
 import case_study.furama_resort.model.customer.Customer;
 import case_study.furama_resort.model.dto.contract.ContractDto;
 import case_study.furama_resort.model.employee.Employee;
@@ -89,14 +90,13 @@ public class ContractController {
             BeanUtils.copyProperties(contractDto, contract);
             contractService.save(contract);
 
-            List<Contract> contractList = contractService.findAll();
             for (int i = 0; i < contractDto.getQuantities().size(); i++) {
                 Integer quantity = contractDto.getQuantities().get(i);
                 if (quantity != null) {
                     ContractDetail contractDetail = new ContractDetail();
                     contractDetail.setQuantity(quantity);
                     contractDetail.setAttachFacility(attachFacilities.get(i));
-                    contractDetail.setContract(contractList.get(contractList.size() - 1));
+                    contractDetail.setContract(contract);
                     contractDetailService.save(contractDetail);
                 }
             }
@@ -109,12 +109,13 @@ public class ContractController {
     }
 
     @GetMapping("/{id}/attachFacilities")
-    public ResponseEntity<List<ContractDetail>> getContractDetails(@PathVariable int id) {
-        List<ContractDetail> contractDetails = contractDetailService.findByContractId(id);
-        if (contractDetails.isEmpty()) {
+    public ResponseEntity<List<ContractDetailAttachFacilityDto>> getContractDetails(@PathVariable int id) {
+        List<ContractDetailAttachFacilityDto> contractDetailAttachFacilityDtos = contractDetailService.findByContractId(id);
+        System.out.println(contractDetailAttachFacilityDtos.toString());
+        if (contractDetailAttachFacilityDtos.isEmpty()) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(contractDetails, HttpStatus.OK);
+        return new ResponseEntity<>(contractDetailAttachFacilityDtos, HttpStatus.OK);
     }
 
     @PostMapping("/{id}/attachFacilities")

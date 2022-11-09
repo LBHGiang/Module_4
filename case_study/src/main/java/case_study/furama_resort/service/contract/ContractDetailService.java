@@ -2,6 +2,7 @@ package case_study.furama_resort.service.contract;
 
 import case_study.furama_resort.model.contract.Contract;
 import case_study.furama_resort.model.contract.ContractDetail;
+import case_study.furama_resort.model.contract.ContractDetailAttachFacilityDto;
 import case_study.furama_resort.repository.contract.IContractDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class ContractDetailService implements IContractDetailService {
     }
 
     @Override
-    public List<ContractDetail> findByContractId(int id) {
+    public List<ContractDetailAttachFacilityDto> findByContractId(int id) {
         return contractDetailRepository.findByContractId(id);
     }
 }
