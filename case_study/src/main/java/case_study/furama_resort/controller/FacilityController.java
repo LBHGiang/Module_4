@@ -91,11 +91,13 @@ public class FacilityController {
         return "facilities/create";
     }
 
-//    Create
+    //    Create
     @PostMapping("/create/villa")
     public String createVilla(@Validated @ModelAttribute(value = "facilityDto") VillaDto villaDto,
-                         BindingResult bindingResult,
-                         RedirectAttributes redirect) {
+                              BindingResult bindingResult,
+                              RedirectAttributes redirect,
+                              Model model) {
+        new VillaDto().validate(villaDto, bindingResult);
         if (!bindingResult.hasErrors()) {
             Facility facility = new Facility();
             BeanUtils.copyProperties(villaDto, facility);
@@ -103,7 +105,10 @@ public class FacilityController {
             redirect.addFlashAttribute("message", "Facility created successfully");
             return "redirect:/facilities/create";
         } else {
-            redirect.addFlashAttribute("message", "Facility creation failed");
+//            FacilityDto facilityDto = new FacilityDto();
+//            BeanUtils.copyProperties(villaDto, facilityDto);
+//            model.addAttribute("message", "Facility creation failed");
+            model.addAttribute("facilityDto", villaDto);
             return "/facilities/create";
         }
     }
@@ -126,8 +131,8 @@ public class FacilityController {
 
     @PostMapping("/create/room")
     public String createRoom(@Validated @ModelAttribute(value = "facilityDto") RoomDto roomDto,
-                              BindingResult bindingResult,
-                              RedirectAttributes redirect) {
+                             BindingResult bindingResult,
+                             RedirectAttributes redirect) {
         if (!bindingResult.hasErrors()) {
             Facility facility = new Facility();
             BeanUtils.copyProperties(roomDto, facility);
@@ -247,20 +252,25 @@ public class FacilityController {
 //        return "facilities/list";
 //    }
 
-//    @PostMapping("/create")
-//    public String create(@Validated @ModelAttribute(value = "facilityDto") FacilityDto facilityDto,
-//                         BindingResult bindingResult,
-//                         RedirectAttributes redirect) {
-//        if (!bindingResult.hasErrors()) {
-//            Facility facility = new Facility();
-//            BeanUtils.copyProperties(facilityDto, facility);
-//            facilityService.save(facility);
-//            redirect.addFlashAttribute("message", "Facility created successfully");
-//        } else {
-//            redirect.addFlashAttribute("message", "Facility creation failed");
-//        }
-//        return "redirect:/facilities/create";
-//    }
+    @PostMapping("/create")
+    public String create(@Validated @ModelAttribute(value = "facilityDto") FacilityDto facilityDto,
+                         BindingResult bindingResult,
+                         RedirectAttributes redirect,
+                         Model model) {
+
+        new FacilityDto().validate(facilityDto, bindingResult);
+        if (!bindingResult.hasErrors()) {
+            Facility facility = new Facility();
+            BeanUtils.copyProperties(facilityDto, facility);
+            facilityService.save(facility);
+            redirect.addFlashAttribute("message", "Facility created successfully");
+            return "redirect:/facilities/create";
+        } else {
+            model.addAttribute("message", "Facility creation failed");
+            model.addAttribute("facilityDto", facilityDto);
+            return "facilities/create";
+        }
+    }
 
     @ModelAttribute("facilityTypes")
     public List<FacilityType> getFacilityTypes() {

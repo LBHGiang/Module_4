@@ -10,18 +10,18 @@ import java.util.Set;
 public class Facility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
-    private int area;
-    private double cost;
-    private int maxPeople;
+    private Integer area;
+    private Double cost;
+    private Integer maxPeople;
     private String standardRoom;
     private String descriptionOtherConvenience;
-    private double poolArea;
-    private int numberOfFloors;
+    private Double poolArea;
+    private Integer numberOfFloors;
     private String facilityFree;
     @Column(columnDefinition = "int default 1")
-    private int status = 1;
+    private Integer status = 1;
 
     @ManyToOne
     @JoinColumn(name = "rent_type_id", referencedColumnName = "id")

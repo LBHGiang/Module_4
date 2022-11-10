@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout/layout :: head">
+</head>
+<body>
+<div th:replace="/layout/layout :: header">
+</div>
+<div th:replace="/layout/facility_create_edit :: navbar">
+</div>
+
+<div class="container-fluid">
+    <div class="row" style="width: 100%; padding: 0; margin: 0;">
+        <div id="content">
+            <div class="notify">
+                <div th:if="${message}">
+                    <h2 style="color: #4caf50" th:text="${message}"></h2>
+                </div>
+            </div>
+
+            <h1 style="text-align: center; color: blue">Chỉnh sửa Dịch Vụ</h1>
+
+            <form id="form" action="/facilities/edit" th:object="${facilityDto}"
+                  method="post" novalidate="novalidate">
+                <fieldset style="width: 50%; margin-left: 25%">
+                    <legend>Chỉnh sửa thông tin</legend>
+                    <table class="table table-striped" style="text-align: left">
+                        <input type="hidden" th:field="*{id}"/>
+                        <tr>
+                            <td>Tên</td>
+                            <td><input type="text" th:field="*{name}"></td>
+                        </tr>
+                        <tr>
+                            <td>Kiểu dịch vụ</td>
+                            <td><select th:field="*{facilityType}" id="facilityTypeSelect">
+                                <option th:each="facilityType: ${facilityTypes}"
+                                        th:value="${facilityType.id}" th:text="${facilityType.name}"></option>
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <td>Diện tích</td>
+                            <td><input type="text" th:field="*{area}"></td>
+                        </tr>
+                        <tr>
+                            <td>Giá</td>
+                            <td><input type="text" th:field="*{cost}"></td>
+                        </tr>
+                        <tr>
+                            <td>Số người tối đa</td>
+                            <td><input type="text" th:field="*{maxPeople}"></td>
+                        </tr>
+                        <tr>
+                            <td>Kiểu thuê</td>
+                            <td><select th:field="*{rentType}">
+                                <option th:each="rentType: ${rentTypes}"
+                                        th:value="${rentType.id}" th:text="${rentType.name}"></option>
+                            </select></td>
+                        </tr>
+                        <tr class="villa house">
+                            <td>Tiêu chuẩn phòng</td>
+                            <td><input type="text" th:field="*{standardRoom}"></td>
+                        </tr>
+                        <tr class="villa house">
+                            <td>Mô tả</td>
+                            <td><input type="text" th:field="*{descriptionOtherConvenience}"></td>
+                        </tr>
+                        <tr class="villa">
+                            <td>Diện tích hồ bơi</td>
+                            <td><input type="text" th:field="*{poolArea}"></td>
+                        </tr>
+                        <tr class="villa house">
+                            <td>Số tầng</td>
+                            <td><input type="text" th:field="*{numberOfFloors}"></td>
+                        </tr>
+                        <tr class="room">
+                            <td>Dịch vụ miễn phí</td>
+                            <td><input type="text" th:field="*{facilityFree}"></td>
+                        </tr>
+                        <tr>
+                            <td><a th:href="@{/facilities/{id}/edit(id=${facilityDto.id})}" class="btn btn-primary"
+                                   role="button">Hoàn tác</a></td>
+                            <td>
+                                <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<footer th:replace="/layout/layout :: footer"></footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        showEditForm()
+    })
+
+    $("#facilityTypeSelect").change(function () {
+        showEditForm()
+    })
+
+    function showEditForm() {
+        $(".room").hide();
+        $(".house").hide();
+        $(".villa").hide();
+        let type = $("#facilityTypeSelect").val();
+        console.log(type);
+        switch (type) {
+            case "1" :
+                $("#form").attr("action", "/facilities/edit/villa");
+                $(".villa").show();
+                break;
+            case "2" :
+                $("#form").attr("action", "/facilities/edit/house");
+                $(".house").show();
+                break;
+            case "3" :
+                $("#form").attr("action", "/facilities/edit/room");
+                $(".room").show();
+                break;
+        }
+    }
+
+</script>
+</body>
+</html>

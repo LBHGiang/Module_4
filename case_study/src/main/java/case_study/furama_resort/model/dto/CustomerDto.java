@@ -2,6 +2,7 @@ package case_study.furama_resort.model.dto;
 
 import case_study.furama_resort.model.customer.CustomerType;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 public class CustomerDto {
@@ -11,16 +12,21 @@ public class CustomerDto {
     private String name;
 
     private String dateOfBirth;
-    private int gender;
+    private Integer gender;
 
-    @Pattern(regexp = "^[1-9]((\\d{8})|(\\d{11}))$", message = "CMND gồm 9 hoặc 12 số.")
+    @Pattern(regexp = "^[1-9]((\\d{8})|(\\d{11}))$", message = "CMND gồm 9 hoặc 12 số")
     private String idCard;
 
-    @Pattern(regexp = "^(090\\d{6})$", message = "Số điện thoại gồm 9 số bắt đầu là 090 (Vd: 090123456")
+    @Pattern(regexp = "^(090\\d{6})$", message = "Số điện thoại gồm 9 số bắt đầu là 090 (Vd: 090123456)")
     private String phoneNumber;
+
+    @NotBlank(message = "Email không được rỗng")
     private String email;
+
+    @NotBlank(message = "Địa chỉ không được rỗng")
     private String address;
     private int status = 1;
+
     private CustomerType customerType;
 
     public CustomerDto() {

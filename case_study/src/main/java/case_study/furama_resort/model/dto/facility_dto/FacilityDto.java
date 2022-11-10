@@ -2,29 +2,110 @@ package case_study.furama_resort.model.dto.facility_dto;
 
 import case_study.furama_resort.model.facilities.FacilityType;
 import case_study.furama_resort.model.facilities.RentType;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
-public class FacilityDto {
+import javax.validation.constraints.Pattern;
+
+public class FacilityDto implements Validator {
 
     private int id;
+
+    @Pattern(regexp = "^[\\p{L}|\\d]+(\\s[\\p{L}|\\d]+)*$", message = "Tên chưa đúng định dạng! (Vd: Hoàng Giang)")
     private String name;
-    private int area;
-    private double cost;
-    private int maxPeople;
+
+
+    private Integer area;
+    private Double cost;
+    private Integer maxPeople;
 
     private String standardRoom;
     private String descriptionOtherConvenience;
-    private double poolArea;
-    private int numberOfFloors;
+    private Double poolArea;
+    private Integer numberOfFloors;
     private String facilityFree;
 
     private int status = 1;
     private RentType rentType;
+
     private FacilityType facilityType;
 
     public FacilityDto() {
     }
 
-    public FacilityDto(int id, String name, int area, double cost, int maxPeople, String standardRoom, String descriptionOtherConvenience, double poolArea, int numberOfFloors, String facilityFree, int status, RentType rentType, FacilityType facilityType) {
+    @Override
+    public void validate(Object target, Errors errors) {
+        FacilityDto facilityDto = (FacilityDto) target;
+
+        if (facilityDto.area == null) {
+            errors.rejectValue("area", "", "Không được để trống");
+        } else if (facilityDto.area <= 0) {
+            errors.rejectValue("area", "", "Diện tích phải là số dương");
+        }
+
+        if (facilityDto.cost == null) {
+            errors.rejectValue("cost", "", "Không được để trống");
+        } else if (facilityDto.cost <= 0) {
+            errors.rejectValue("cost", "", "Giá phải là số dương");
+        }
+
+        if (facilityDto.maxPeople == null) {
+            errors.rejectValue("maxPeople", "", "Không được để trống");
+        } else if (facilityDto.maxPeople <= 0) {
+            errors.rejectValue("maxPeople", "", "Số người phải là số dương");
+        }
+
+        if (facilityDto.getFacilityType() == null) {
+            errors.rejectValue("facilityType", "", "Phải chọn 1 dịch vụ");
+        } else {
+            switch (facilityDto.getFacilityType().getId()) {
+                case 3: //room
+                    if (facilityDto.facilityFree.equals("")) {
+                        errors.rejectValue("facilityFree", "", "Không được để trống");
+                    }
+                    break;
+
+                case 1: //villa
+                    if (facilityDto.standardRoom.equals("")) {
+                        errors.rejectValue("standardRoom", "", "Không được để trống");
+                    }
+                    if (facilityDto.descriptionOtherConvenience.equals("")) {
+                        errors.rejectValue("descriptionOtherConvenience", "", "Không được để trống");
+                    }
+
+                    if (facilityDto.poolArea == null) {
+                        errors.rejectValue("poolArea", "", "Không được để trống");
+                    } else if (facilityDto.poolArea <= 0) {
+                        errors.rejectValue("poolArea", "", "Phải là số dương");
+                    }
+
+                    if (facilityDto.numberOfFloors == null) {
+                        errors.rejectValue("numberOfFloors", "", "Không được để trống");
+                    } else if (facilityDto.numberOfFloors <= 0) {
+                        errors.rejectValue("numberOfFloors", "", "Phải là số dương");
+                    }
+                    break;
+
+                //house
+                case 2:
+                    if (facilityDto.standardRoom.equals("")) {
+                        errors.rejectValue("standardRoom", "", "Không được để trống");
+                    }
+                    if (facilityDto.descriptionOtherConvenience.equals("")) {
+                        errors.rejectValue("descriptionOtherConvenience", "", "Không được để trống");
+                    }
+
+                    if (facilityDto.numberOfFloors == null) {
+                        errors.rejectValue("numberOfFloors", "", "Không được để trống");
+                    } else if (facilityDto.numberOfFloors <= 0) {
+                        errors.rejectValue("numberOfFloors", "", "Phải là số dương");
+                    }
+                    break;
+            }
+        }
+    }
+
+    public FacilityDto(int id, String name, Integer area, Double cost, Integer maxPeople, String standardRoom, String descriptionOtherConvenience, Double poolArea, Integer numberOfFloors, String facilityFree, int status, RentType rentType, FacilityType facilityType) {
         this.id = id;
         this.name = name;
         this.area = area;
@@ -56,27 +137,27 @@ public class FacilityDto {
         this.name = name;
     }
 
-    public int getArea() {
+    public Integer getArea() {
         return area;
     }
 
-    public void setArea(int area) {
+    public void setArea(Integer area) {
         this.area = area;
     }
 
-    public double getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(double cost) {
+    public void setCost(Double cost) {
         this.cost = cost;
     }
 
-    public int getMaxPeople() {
+    public Integer getMaxPeople() {
         return maxPeople;
     }
 
-    public void setMaxPeople(int maxPeople) {
+    public void setMaxPeople(Integer maxPeople) {
         this.maxPeople = maxPeople;
     }
 
@@ -96,19 +177,19 @@ public class FacilityDto {
         this.descriptionOtherConvenience = descriptionOtherConvenience;
     }
 
-    public double getPoolArea() {
+    public Double getPoolArea() {
         return poolArea;
     }
 
-    public void setPoolArea(double poolArea) {
+    public void setPoolArea(Double poolArea) {
         this.poolArea = poolArea;
     }
 
-    public int getNumberOfFloors() {
+    public Integer getNumberOfFloors() {
         return numberOfFloors;
     }
 
-    public void setNumberOfFloors(int numberOfFloors) {
+    public void setNumberOfFloors(Integer numberOfFloors) {
         this.numberOfFloors = numberOfFloors;
     }
 
@@ -142,5 +223,10 @@ public class FacilityDto {
 
     public void setFacilityType(FacilityType facilityType) {
         this.facilityType = facilityType;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
     }
 }

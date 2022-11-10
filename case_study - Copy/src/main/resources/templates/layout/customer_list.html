@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="head">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Furama Resort</title>
+
+        <!--boostrap -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+        <!--end boostrap -->
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <style>
+            body {
+                background: url("/image/bg_img.jpg") no-repeat center/cover;
+                height: 100vh;
+                width: 100vw;
+            }
+
+            #wrapper {
+                right: 0;
+                margin: 0 auto;
+                display: block;
+                width: 960px;
+            }
+
+            #border-pagination {
+                margin: 0 auto;
+                padding: 0;
+                text-align: center
+            }
+
+            #border-pagination li {
+                display: inline;
+            }
+
+            #border-pagination li a {
+                display: block;
+                text-decoration: none;
+                color: red;
+                padding: 5px 10px;
+                border: 1px solid #ddd;
+                background-color: white;
+                float: left;
+
+            }
+
+            #border-pagination li a {
+                -webkit-transition: background-color 0.4s;
+                transition: background-color 0.4s
+            }
+
+            #border-pagination li a.active {
+                background-color: #4caf50;
+                color: #fff;
+            }
+
+            #border-pagination li a:hover:not(.active) {
+                background: #4caf50;
+            }
+        </style>
+    </head>
+    <body>
+
+
+        <!--        Navbar-->
+        <div th:fragment="navbar">
+            <div class="header-nav js-header-nav bg-light">
+                <nav class="navbar navbar-expand-lg ">
+                    <div class="navbar-collapse d-flex w-100 justify-content-between">
+                        <ul id="menu-furama-vi" class="menu navbar-nav js-main-menu" style="margin-left: 5%;">
+                            <li id="nav-menu-item-5006"
+                                class="nav-item  menu-item-even menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page">
+                                <a href="/home" class="nav-link main-menu-link">HOME</a>
+                            </li>
+                            <li id="nav-menu-item-5007"
+                                class="nav-item  menu-item-even menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page">
+                                <a href="/employees" class="nav-link main-menu-link">EMPLOYEE</a>
+                            </li>
+                            <li id="nav-menu-item-5008"
+                                class="nav-item  menu-item-even menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page">
+                                <a href="/customers" class="nav-link main-menu-link">CUSTOMER</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="/facilities" id="navbarDropdown"
+                                   role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    SERVICE
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="/facilities">All Facilities</a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/facilities?searchFacilityType=Villa">VILLA</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/facilities?searchFacilityType=House">HOUSE</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/facilities?searchFacilityType=Room">ROOM</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="nav-menu-item-5010"
+                                class="nav-item  menu-item-even menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page">
+                                <a href="/contracts"
+                                   class="nav-link main-menu-link">CONTRACT
+                                </a>
+                            </li>
+                        </ul>
+                        <div style="margin-right: 5%">
+                            <form class="d-flex m-0 align-items-center" style="padding: 0 12px"
+                                  action="/customers" method="get">
+                                <span class="mx-3">Name</span>
+                                <input name="searchName" placeholder="Tìm theo tên&hellip;"
+                                       th:value="${searchName}" type="text" aria-label="Search">
+                                <span class="mx-3">Email</span>
+                                <input name="searchEmail" placeholder="Tìm theo tên&hellip;"
+                                       th:value="${searchEmail}" type="text" aria-label="Search">
+                                <select name="searchCustomerType" class="mx-3">
+                                    <option th:if="${searchCustomerType}!=''"
+                                            th:value="${searchCustomerType}"
+                                            th:text="${searchCustomerType}"></option>
+                                    <option th:value="''"
+                                            th:text="'--All Type--'"></option>
+                                    <option th:each="customerType: ${customerTypes}"
+                                            th:value="${customerType.name}"
+                                            th:text="${customerType.name}"></option>
+                                </select>
+                                <button class="btn btn-outline-success" type="submit">Tìm kiếm
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </body>
+</html>
