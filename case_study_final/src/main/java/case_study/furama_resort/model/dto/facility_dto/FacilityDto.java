@@ -35,6 +35,24 @@ public class FacilityDto implements Validator {
     public FacilityDto() {
     }
 
+    public void dataFormat() {
+        switch (this.getFacilityType().getId()) {
+            case 1:
+                this.facilityFree = null;
+                break;
+            case 2:
+                this.facilityFree = null;
+                this.poolArea = null;
+                break;
+            case 3:
+                this.standardRoom = null;
+                this.descriptionOtherConvenience = null;
+                this.poolArea = null;
+                this.numberOfFloors = null;
+                break;
+        }
+    }
+
     @Override
     public void validate(Object target, Errors errors) {
         FacilityDto facilityDto = (FacilityDto) target;
@@ -102,7 +120,6 @@ public class FacilityDto implements Validator {
                         errors.rejectValue("numberOfFloors", "", "Số tầng phải là một số nguyên dương");
 
                     }
-
                     break;
                 //house
                 case 2:
@@ -124,7 +141,8 @@ public class FacilityDto implements Validator {
 
                     }
                     break;
-                //room
+
+                //roo
                 case 3:
                     if (facilityDto.facilityFree.matches("^\\s*$")) {
                         errors.rejectValue("facilityFree", "", "Không được để trống");

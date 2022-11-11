@@ -4,20 +4,30 @@ import case_study.furama_resort.model.contract.ContractDetail;
 import case_study.furama_resort.model.customer.Customer;
 import case_study.furama_resort.model.employee.Employee;
 import case_study.furama_resort.model.facilities.Facility;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.Set;
 
-public class ContractDto {
+public class ContractDto implements Validator {
 
     private int id;
     private String startDate;
     private String endDate;
-    private double deposit;
+    private String deposit;
     private int status = 1;
     private Set<ContractDetail> contractDetails;
+
+    @NotNull(message = "Vui lòng chọn")
     private Employee employee;
+    @NotNull(message = "Vui lòng chọn")
     private Customer customer;
+    @NotNull(message = "Vui lòng chọn")
     private Facility facility;
     private LinkedList<Integer> quantities;
     private double total;
@@ -25,7 +35,56 @@ public class ContractDto {
     public ContractDto() {
     }
 
-    public ContractDto(int id, String startDate, String endDate, double deposit, int status, Set<ContractDetail> contractDetails, Employee employee, Customer customer, Facility facility) {
+    @Override
+    public void validate(Object target, Errors errors) {
+        ContractDto contractDto = (ContractDto) target;
+
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        LocalDate startLocalDate = null;
+        LocalDate endLocalDate = null;
+
+        try {
+            startLocalDate = LocalDate.parse(contractDto.getStartDate(), fmt);
+            if ( startLocalDate == null || !startLocalDate.isAfter(LocalDate.now())) {
+                errors.rejectValue("startDate", "", "Ngày bắt đầu phải ở tương lai");
+            }
+        } catch (DateTimeParseException e) {
+            errors.rejectValue("startDate", "", "Ngày bắt đầu không đúng định dạng DD/mm/YYYY hoặc không đúng");
+        }
+
+        try {
+            endLocalDate = LocalDate.parse(contractDto.getEndDate(), fmt);
+            if ( endLocalDate == null || !endLocalDate.isAfter(LocalDate.now())) {
+                errors.rejectValue("endDate", "", "Ngày kết thúc phải ở tương lai");
+            }
+        } catch (DateTimeParseException e) {
+            errors.rejectValue("endDate", "", "Ngày bắt đầu không đúng định dạng DD/mm/YYYY hoặc không đúng");
+        }
+
+        if (startLocalDate == null || endLocalDate == null || !startLocalDate.isBefore(endLocalDate)) {
+            errors.rejectValue("startDate", "", "Ngày bắt đầu và ngày kết thúc chưa đúng dòng thời gian");
+            errors.rejectValue("endDate", "", "Ngày bắt đầu và ngày kết thúc chưa đúng dòng thời gian");
+        }
+
+        try {
+            double num = Double.parseDouble(contractDto.getDeposit());
+            if (num <= 0) {
+                errors.rejectValue("deposit", "", "Tiền đặt cọc phải lớn hơn 0");
+            }
+        } catch (NumberFormatException e) {
+            errors.rejectValue("deposit", "", "Tiền đặt cọc phải là một số dương");
+        }
+
+        for (Integer i : contractDto.getQuantities()) {
+            if (i != null && i < 0) {
+                errors.rejectValue("quantities", "", "Số lượng mỗi dịch vụ không được âm, vui lòng kiểm tra lại");
+                break;
+            }
+        }
+    }
+
+    public ContractDto(int id, String startDate, String endDate, String deposit, int status, Set<ContractDetail> contractDetails, Employee employee, Customer customer, Facility facility) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -61,11 +120,11 @@ public class ContractDto {
         this.endDate = endDate;
     }
 
-    public double getDeposit() {
+    public String getDeposit() {
         return deposit;
     }
 
-    public void setDeposit(double deposit) {
+    public void setDeposit(String deposit) {
         this.deposit = deposit;
     }
 
@@ -133,4 +192,10 @@ public class ContractDto {
             }
         }
     }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
 }

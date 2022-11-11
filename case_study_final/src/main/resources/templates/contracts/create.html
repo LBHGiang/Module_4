@@ -22,21 +22,22 @@
 
             <form action="/contracts/create" th:object="${contractDto}"
                   method="post" novalidate="novalidate">
-                <fieldset style="width: 50%; margin-left: 25%">
+                <fieldset style="width: 70%; margin-left: 25%">
                     <legend>Nhập thông tin</legend>
-                    <table class="table table-striped" style="text-align: left">
+                    <table id="table-main" class="table table-striped" style="text-align: left">
                         <input type="hidden" th:field="*{id}"/>
-                        <tr>
-                            <td>Dịch Vụ</td>
-                            <td>
+                        <tr id="table-width">
+                            <td width="20%">Dịch Vụ</td>
+                            <td width="30%">
                                 <select th:field="*{facility}">
                                     <option value="">--Chọn Dịch Vụ--</option>
                                     <option th:each="facility: ${facilities}"
                                             th:value="${facility.id}" th:text="${facility.name}">
-
                                     </option>
                                 </select>
                             </td>
+                            <td width="50%" style="color: red" th:errors="*{facility}"
+                                th:if="${#fields.hasErrors('facility')}"></td>
                         </tr>
                         <tr>
                             <td>Khách Hàng</td>
@@ -45,6 +46,8 @@
                                 <option th:each="customer: ${customers}"
                                         th:value="${customer.id}" th:text="${customer.name}"></option>
                             </select></td>
+                            <td style="color: red" th:errors="*{customer}"
+                                th:if="${#fields.hasErrors('customer')}"></td>
                         </tr>
                         <tr>
                             <td>Nhân Viên</td>
@@ -53,18 +56,26 @@
                                 <option th:each="employee: ${employees}"
                                         th:value="${employee.id}" th:text="${employee.name}"></option>
                             </select></td>
+                            <td style="color: red" th:errors="*{employee}"
+                                th:if="${#fields.hasErrors('employee')}"></td>
                         </tr>
                         <tr>
                             <td>Ngày bắt đầu</td>
-                            <td><input type="text" th:field="*{startDate}"></td>
+                            <td><input type="date" th:field="*{startDate}"></td>
+                            <td style="color: red" th:errors="*{startDate}"
+                                th:if="${#fields.hasErrors('startDate')}"></td>
                         </tr>
                         <tr>
                             <td>Ngày kết thúc</td>
-                            <td><input type="text" th:field="*{endDate}"></td>
+                            <td><input type="date" th:field="*{endDate}"></td>
+                            <td style="color: red" th:errors="*{endDate}"
+                                th:if="${#fields.hasErrors('endDate')}"></td>
                         </tr>
                         <tr>
                             <td>Đặt trước</td>
                             <td><input type="text" th:field="*{deposit}"></td>
+                            <td style="color: red" th:errors="*{deposit}"
+                                th:if="${#fields.hasErrors('deposit')}"></td>
                         </tr>
                         <input id="quantityOutput" type="hidden" th:field="*{quantities}">
                         <tr>
@@ -75,45 +86,8 @@
                                     +
                                 </button>
                             </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <table id="details-form" class="table table-striped table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>Tên</th>
-                                        <th>Đơn Vị</th>
-                                        <th>Giá</th>
-                                        <th>Số lượng</th>
-                                        <th>Thành tiền</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="attachFacilitie:${attachFacilities}">
-
-                                        <input id="size" type="hidden" th:value="${attachFacilities.size()}">
-                                        <!--                                Tên-->
-                                        <td th:attr="class=|output-id${attachFacilitie.id}|"
-                                            th:text="${attachFacilitie.name}"></td>
-                                        <!--                                Đơn vị-->
-                                        <td th:attr="class=|output-id${attachFacilitie.id}|"
-                                            th:text="${attachFacilitie.unit}"></td>
-                                        <!--                                Giá-->
-                                        <td th:attr="class=|output-id${attachFacilitie.id}|"
-                                            th:text="${attachFacilitie.cost}"></td>
-                                        <!--                                Số lượng-->
-                                        <td th:attr="id=|show-quantity${attachFacilitie.id}|"></td>
-                                        <!--                                Thành tiền-->
-                                        <td th:attr="id=|show-sub-cost${attachFacilitie.id}|"></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="4">Tổng tiền dịch vụ đi kèm
-                                        </td>
-                                        <td id="show-total-cost"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </td>
+                            <td style="color: red" th:errors="*{quantities}"
+                                th:if="${#fields.hasErrors('quantities')}"></td>
                         </tr>
                         <tr>
                             <td><a href="/contracts/create" class="btn btn-primary" role="button">Xóa tất cả
@@ -123,6 +97,41 @@
                                 <button type="submit" class="btn btn-primary">Thêm mới</button>
                             </td>
                         </tr>
+                    </table>
+                    <table id="details-form" class="table table-striped table-bordered">
+                        <thead>
+                        <tr  width="50%">
+                            <th>Tên</th>
+                            <th>Đơn Vị</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="attachFacilitie:${attachFacilities}">
+
+                            <input id="size" type="hidden" th:value="${attachFacilities.size()}">
+                            <!--                                Tên-->
+                            <td th:attr="class=|output-id${attachFacilitie.id}|"
+                                th:text="${attachFacilitie.name}"></td>
+                            <!--                                Đơn vị-->
+                            <td th:attr="class=|output-id${attachFacilitie.id}|"
+                                th:text="${attachFacilitie.unit}"></td>
+                            <!--                                Giá-->
+                            <td th:attr="class=|output-id${attachFacilitie.id}|"
+                                th:text="${attachFacilitie.cost}"></td>
+                            <!--                                Số lượng-->
+                            <td th:attr="id=|show-quantity${attachFacilitie.id}|"></td>
+                            <!--                                Thành tiền-->
+                            <td th:attr="id=|show-sub-cost${attachFacilitie.id}|"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">Tổng tiền dịch vụ đi kèm
+                            </td>
+                            <td id="show-total-cost"></td>
+                        </tr>
+                        </tbody>
                     </table>
                 </fieldset>
             </form>
@@ -194,6 +203,16 @@
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
+    $("#table-main tr").each(function () {
+        this.classList.add('osoke')
+    })
+    $("#table-main tr td:nth-child(1)").each(function () {
+        this.classList.add('w-20')
+    })
+    $("#table-main tr td:nth-child(2)").each(function () {
+        this.classList.add('w-25')
+    })
+
 
     $(document).ready(function () {
         showAttachFacility();
@@ -224,7 +243,6 @@
             let totalCost = $("#total-cost").text();
             $("#show-total-cost").text(totalCost);
 
-
             if (quantity > 0) {
                 $("#details-form").show();
                 $(".output-id" + i).show();
@@ -235,6 +253,7 @@
                 $("#show-quantity" + i).hide();
                 $("#show-sub-cost" + i).hide();
             }
+
         }
 
         //truyền dữ liệu về server khi submid form

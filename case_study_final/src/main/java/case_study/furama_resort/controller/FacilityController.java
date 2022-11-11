@@ -1,9 +1,6 @@
 package case_study.furama_resort.controller;
 
 import case_study.furama_resort.model.dto.facility_dto.FacilityDto;
-import case_study.furama_resort.model.dto.facility_dto.HouseDto;
-import case_study.furama_resort.model.dto.facility_dto.RoomDto;
-import case_study.furama_resort.model.dto.facility_dto.VillaDto;
 import case_study.furama_resort.model.facilities.Facility;
 import case_study.furama_resort.model.facilities.FacilityType;
 import case_study.furama_resort.model.facilities.RentType;
@@ -92,7 +89,6 @@ public class FacilityController {
     }
 
 
-    //Edit
     @GetMapping("/{id}/edit")
     public String update(@PathVariable(value = "id") int id, Model model, RedirectAttributes redirect) {
         Optional<Facility> optionalFacility = facilityService.findById(id);
@@ -114,6 +110,7 @@ public class FacilityController {
 
         new FacilityDto().validate(facilityDto, bindingResult);
         if (!bindingResult.hasErrors()) {
+            facilityDto.dataFormat();
             Facility facility = new Facility();
             BeanUtils.copyProperties(facilityDto, facility);
             facilityService.save(facility);

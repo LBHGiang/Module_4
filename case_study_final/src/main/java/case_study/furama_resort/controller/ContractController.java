@@ -84,7 +84,10 @@ public class ContractController {
     public String create(@Validated @ModelAttribute(value = "contractDto") ContractDto contractDto,
                          BindingResult bindingResult,
                          @ModelAttribute(value = "attachFacilities") List<AttachFacility> attachFacilities,
-                         RedirectAttributes redirect) {
+                         RedirectAttributes redirect,
+                         Model model) {
+
+        new ContractDto().validate(contractDto, bindingResult);
         if (!bindingResult.hasErrors()) {
             Contract contract = new Contract();
             BeanUtils.copyProperties(contractDto, contract);
@@ -100,12 +103,14 @@ public class ContractController {
                     contractDetailService.save(contractDetail);
                 }
             }
-
             redirect.addFlashAttribute("message", "Contract created successfully");
+            return "redirect:/contracts/create";
         } else {
-            redirect.addFlashAttribute("message", "Contract creation failed");
+            model.addAttribute("message", "Contract creation failed");
+            model.addAttribute("contractDto", contractDto);
+            return "contracts/create";
         }
-        return "redirect:/contracts/create";
+
     }
 
     @GetMapping("/{id}/attachFacilities")

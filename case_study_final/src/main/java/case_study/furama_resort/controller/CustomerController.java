@@ -4,6 +4,7 @@ import case_study.furama_resort.model.customer.Customer;
 import case_study.furama_resort.model.customer.CustomerType;
 import case_study.furama_resort.model.dto.CustomerDto;
 import case_study.furama_resort.model.dto.contract.ContractDetailAttachFacilityDto;
+import case_study.furama_resort.model.dto.facility_dto.FacilityDto;
 import case_study.furama_resort.service.contract.IContractDetailService;
 import case_study.furama_resort.service.customer.ICustomerService;
 import case_study.furama_resort.service.customer.ICustomerTypeService;
@@ -93,8 +94,11 @@ public class CustomerController {
                          BindingResult bindingResult,
                          RedirectAttributes redirect,
                          Model model) {
+
+        new CustomerDto().validate(customerDto, bindingResult);
         if (!bindingResult.hasFieldErrors()) {
             Customer customer = new Customer();
+            customerDto.dateFormat();
             BeanUtils.copyProperties(customerDto, customer);
             customerService.save(customer);
             redirect.addFlashAttribute("message", "Customer created successfully");

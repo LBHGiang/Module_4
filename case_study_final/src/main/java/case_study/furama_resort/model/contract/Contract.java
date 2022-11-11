@@ -14,7 +14,7 @@ public class Contract {
     private int id;
     private String startDate;
     private String endDate;
-    private double deposit;
+    private String deposit;
     @Column(columnDefinition = "int default 1")
     private int status = 1;
 
@@ -36,7 +36,7 @@ public class Contract {
     public Contract() {
     }
 
-    public Contract(int id, String startDate, String endDate, double deposit, int status, Set<ContractDetail> contractDetails, Employee employee, Customer customer, Facility facility) {
+    public Contract(int id, String startDate, String endDate, String deposit, int status, Set<ContractDetail> contractDetails, Employee employee, Customer customer, Facility facility) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -72,11 +72,11 @@ public class Contract {
         this.endDate = endDate;
     }
 
-    public double getDeposit() {
+    public String getDeposit() {
         return deposit;
     }
 
-    public void setDeposit(double deposit) {
+    public void setDeposit(String deposit) {
         this.deposit = deposit;
     }
 

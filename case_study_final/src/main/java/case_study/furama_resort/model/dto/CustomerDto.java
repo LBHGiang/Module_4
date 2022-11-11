@@ -1,18 +1,23 @@
 package case_study.furama_resort.model.dto;
 
 import case_study.furama_resort.model.customer.CustomerType;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-public class CustomerDto {
+public class CustomerDto implements Validator {
     private int id;
 
-    @Pattern(regexp =  "^\\p{Lu}\\p{Ll}+(\\s\\p{Lu}\\p{Ll}+)*$", message = "Tên chưa đúng định dạng! (Vd: Hoàng Giang)")
+    @Pattern(regexp = "^\\p{Lu}\\p{Ll}+(\\s\\p{Lu}\\p{Ll}+)*$", message = "Tên chưa đúng định dạng! (Vd: Hoàng Giang)")
     private String name;
 
     private String dateOfBirth;
-    private Integer gender;
+    private Integer gender = 0;
 
     @Pattern(regexp = "^[1-9]((\\d{8})|(\\d{11}))$", message = "CMND gồm 9 hoặc 12 số")
     private String idCard;
@@ -29,6 +34,18 @@ public class CustomerDto {
 
     private CustomerType customerType;
 
+    @Override
+    public void validate(Object target, Errors errors) {
+        CustomerDto customerDto = (CustomerDto) target;
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate.parse(customerDto.getDateOfBirth(), fmt);
+        } catch (DateTimeParseException e) {
+            errors.rejectValue("dateOfBirth", "", "Ngày sinh không đúng định dạng DD/mm/YYYY hoặc không đúng");
+        }
+    }
+
+
     public CustomerDto() {
     }
 
@@ -41,6 +58,13 @@ public class CustomerDto {
         this.email = email;
         this.address = address;
         this.status = status;
+    }
+
+    public void dateFormat() {
+        DateTimeFormatter fmtyyyymmdd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter fmtddmmyyyy = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate date = LocalDate.parse(this.dateOfBirth, fmtyyyymmdd);
+        this.dateOfBirth = date.format(fmtddmmyyyy);
     }
 
     public CustomerDto(int id, String name, String dateOfBirth, int gender, String idCard, String phoneNumber, String email, String address, int status, CustomerType customerType) {
@@ -135,5 +159,11 @@ public class CustomerDto {
     public void setCustomerType(CustomerType customerType) {
         this.customerType = customerType;
     }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
 
 }
